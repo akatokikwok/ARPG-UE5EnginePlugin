@@ -11,6 +11,15 @@ enum ELoginType
 	LOGIN_PASSWORD_WRONG,
 };
 
+// 检查命名类型.
+enum ECheckNameType
+{
+	UNKNOWN_ERROR,
+	NAME_NOT_EXIST,
+	SERVER_NOT_EXIST,
+	NAME_EXIST,
+};
+
 struct MMOARPGCOMMON_API FMMOARPGUserData
 {
 	FMMOARPGUserData()
