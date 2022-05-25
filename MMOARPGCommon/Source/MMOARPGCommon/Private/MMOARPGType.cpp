@@ -51,6 +51,8 @@ namespace NetDataAnalysis
 
 	}
 
+	/************************************************************************/
+
 	void CharacterAppearancesToString(const FCharacterAppearances& InCAs, FString& OutString)
 	{
 		OutString.Empty();
@@ -66,9 +68,9 @@ namespace NetDataAnalysis
 			JsonWriter->WriteValue(TEXT("Date"), Tmp.Date);
 			JsonWriter->WriteValue(TEXT("Lv"), Tmp.Lv);
  			JsonWriter->WriteValue(TEXT("SlotPosition"), Tmp.SlotPosition);
-// 			JsonWriter->WriteValue(TEXT("LegSize"), Tmp.LegSize);
-// 			JsonWriter->WriteValue(TEXT("WaistSize"), Tmp.WaistSize);
-// 			JsonWriter->WriteValue(TEXT("ArmSize"), Tmp.ArmSize);
+			JsonWriter->WriteValue(TEXT("LegSize"), Tmp.LegSize);
+			JsonWriter->WriteValue(TEXT("WaistSize"), Tmp.WaistSize);
+			JsonWriter->WriteValue(TEXT("ArmSize"), Tmp.ArmSize);
 
 			JsonWriter->WriteObjectEnd();
 		}
@@ -76,7 +78,7 @@ namespace NetDataAnalysis
 		JsonWriter->Close();
 	}
 
-	void CharacterAppearancesToString(const FMMOARPGCharacterAppearance& InCAs, FString& OutString)
+	void CharacterAppearancesToString(const FMMOARPGCharacterAppearance& InCA, FString& OutString)
 	{
 		OutString.Empty();
 
@@ -85,13 +87,13 @@ namespace NetDataAnalysis
 
 		JsonWriter->WriteObjectStart();
 		{
-			JsonWriter->WriteValue(TEXT("Name"), InCAs.Name);
-			JsonWriter->WriteValue(TEXT("Date"), InCAs.Date);
-			JsonWriter->WriteValue(TEXT("Lv"), InCAs.Lv);
- 			JsonWriter->WriteValue(TEXT("SlotPosition"), InCAs.SlotPosition);
-// 			JsonWriter->WriteValue(TEXT("LegSize"), InCAs.LegSize);
-// 			JsonWriter->WriteValue(TEXT("WaistSize"), InCAs.WaistSize);
-// 			JsonWriter->WriteValue(TEXT("ArmSize"), InCAs.ArmSize);
+			JsonWriter->WriteValue(TEXT("Name"), InCA.Name);
+			JsonWriter->WriteValue(TEXT("Date"), InCA.Date);
+			JsonWriter->WriteValue(TEXT("Lv"), InCA.Lv);
+ 			JsonWriter->WriteValue(TEXT("SlotPosition"), InCA.SlotPosition);
+ 			JsonWriter->WriteValue(TEXT("LegSize"), InCA.LegSize);
+ 			JsonWriter->WriteValue(TEXT("WaistSize"), InCA.WaistSize);
+ 			JsonWriter->WriteValue(TEXT("ArmSize"), InCA.ArmSize);
 		}
 		JsonWriter->WriteObjectEnd();
 		JsonWriter->Close();
@@ -111,27 +113,27 @@ namespace NetDataAnalysis
 					InLast.Date = InJsonObject->GetStringField(TEXT("Date"));
 					InLast.Lv = InJsonObject->GetIntegerField(TEXT("Lv"));
  					InLast.SlotPosition = InJsonObject->GetIntegerField(TEXT("SlotPosition"));
-// 					InLast.LegSize = InJsonObject->GetNumberField(TEXT("LegSize"));
-// 					InLast.WaistSize = InJsonObject->GetNumberField(TEXT("WaistSize"));
-// 					InLast.ArmSize = InJsonObject->GetNumberField(TEXT("ArmSize"));
+ 					InLast.LegSize = InJsonObject->GetNumberField(TEXT("LegSize"));
+ 					InLast.WaistSize = InJsonObject->GetNumberField(TEXT("WaistSize"));
+ 					InLast.ArmSize = InJsonObject->GetNumberField(TEXT("ArmSize"));
 				}
 			}
 		}
 	}
 
-	void StringToCharacterAppearances(const FString& OutString, FMMOARPGCharacterAppearance& InCAs)
+	void StringToCharacterAppearances(const FString& OutString, FMMOARPGCharacterAppearance& InCA)
 	{
 		TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(OutString);
 		TSharedPtr<FJsonObject> ReadRoot;
 
 		if (FJsonSerializer::Deserialize(JsonReader, ReadRoot)) {
-			InCAs.Name = ReadRoot->GetStringField(TEXT("Name"));
-			InCAs.Date = ReadRoot->GetStringField(TEXT("Date"));
-			InCAs.Lv = ReadRoot->GetIntegerField(TEXT("Lv"));
- 			InCAs.SlotPosition = ReadRoot->GetIntegerField(TEXT("SlotPosition"));
-// 			InCAs.LegSize = ReadRoot->GetNumberField(TEXT("LegSize"));
-// 			InCAs.WaistSize = ReadRoot->GetNumberField(TEXT("WaistSize"));
-// 			InCAs.ArmSize = ReadRoot->GetNumberField(TEXT("ArmSize"));
+			InCA.Name = ReadRoot->GetStringField(TEXT("Name"));
+			InCA.Date = ReadRoot->GetStringField(TEXT("Date"));
+			InCA.Lv = ReadRoot->GetIntegerField(TEXT("Lv"));
+ 			InCA.SlotPosition = ReadRoot->GetIntegerField(TEXT("SlotPosition"));
+ 			InCA.LegSize = ReadRoot->GetNumberField(TEXT("LegSize"));
+ 			InCA.WaistSize = ReadRoot->GetNumberField(TEXT("WaistSize"));
+ 			InCA.ArmSize = ReadRoot->GetNumberField(TEXT("ArmSize"));
 		}
 	}
 

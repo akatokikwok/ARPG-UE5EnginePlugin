@@ -49,15 +49,20 @@ struct MMOARPGCOMMON_API FMMOARPGGateStatus
 struct MMOARPGCOMMON_API FMMOARPGCharacterAppearance
 {
 	FMMOARPGCharacterAppearance()
-		:Lv(INDEX_NONE)
-		,SlotPosition(INDEX_NONE)
+		: Lv(INDEX_NONE)
+		, SlotPosition(INDEX_NONE)
+		, LegSize(0.f)
+		, WaistSize(0.f)
+		, ArmSize(0.f)
 	{}
 public:
 	FString Name;
 	FString Date;
 	int32 Lv;
 	int32 SlotPosition;// 每份CA存档都有一个槽号.
-	
+	float LegSize;
+	float WaistSize;
+	float ArmSize;
 };
 
 typedef TArray<FMMOARPGCharacterAppearance> FCharacterAppearances;// 一个玩家可能会有多个角色.
@@ -72,7 +77,7 @@ namespace NetDataAnalysis
 
 	/** 4个负责 解析玩家形象的json方法. */
 	void MMOARPGCOMMON_API CharacterAppearancesToString(const FCharacterAppearances& InCAs, FString& OutString);
-	void MMOARPGCOMMON_API CharacterAppearancesToString(const FMMOARPGCharacterAppearance& InCAs, FString& OutString);
+	void MMOARPGCOMMON_API CharacterAppearancesToString(const FMMOARPGCharacterAppearance& InCA, FString& OutString);
 	void MMOARPGCOMMON_API StringToCharacterAppearances(const FString& OutString, FCharacterAppearances& InCAs);
-	void MMOARPGCOMMON_API StringToCharacterAppearances(const FString& OutString, FMMOARPGCharacterAppearance& InCAs);
+	void MMOARPGCOMMON_API StringToCharacterAppearances(const FString& OutString, FMMOARPGCharacterAppearance& InCA);
 }
