@@ -56,6 +56,10 @@ struct MMOARPGCOMMON_API FMMOARPGCharacterAppearance
 		, ArmSize(0.f)
 	{}
 public:
+	// 还原并格式化所有CA存档里的字段.
+	void Reset();
+
+public:
 	FString Name;
 	FString Date;
 	int32 Lv;

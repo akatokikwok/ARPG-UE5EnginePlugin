@@ -139,3 +139,14 @@ namespace NetDataAnalysis
 
 }
 
+void FMMOARPGCharacterAppearance::Reset()
+{
+	Lv = INDEX_NONE;
+	SlotPosition = INDEX_NONE;
+	LegSize = 0.0f;
+	WaistSize = 0.0f;
+	ArmSize = 0.0f;
+
+	Name.Empty();
+	Date.Empty();
+}
