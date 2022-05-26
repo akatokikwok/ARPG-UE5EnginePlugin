@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "SimpleNetChannelType.h"
+#include "MMOARPGType.generated.h"
 
 // 登录状态(如账户错误,密码错误,服务器错误,成功之类.)
 enum ELoginType
@@ -46,8 +47,11 @@ struct MMOARPGCOMMON_API FMMOARPGGateStatus
 };
 
 /** 玩家形象. */
+USTRUCT()
 struct MMOARPGCOMMON_API FMMOARPGCharacterAppearance
 {
+	GENERATED_USTRUCT_BODY()
+public:
 	FMMOARPGCharacterAppearance()
 		: Lv(INDEX_NONE)
 		, SlotPosition(INDEX_NONE)
@@ -60,14 +64,26 @@ public:
 	void Reset();
 
 public:
-	FString Name;
-	FString Date;
-	int32 Lv;
-	int32 SlotPosition;// 每份CA存档都有一个槽号.
-	float LegSize;
-	float WaistSize;
-	float ArmSize;
+	UPROPERTY()
+		FString Name;
+	UPROPERTY()
+		FString Date;
+	UPROPERTY()
+		int32 Lv;
+	UPROPERTY()
+		int32 SlotPosition;// 每份CA存档都有自己独立的槽号.
+	UPROPERTY()
+		float LegSize;
+	UPROPERTY()
+		float WaistSize;
+	UPROPERTY()
+		float ArmSize;
 };
+
+FORCEINLINE bool operator==(const FMMOARPGCharacterAppearance& Lhs, const FMMOARPGCharacterAppearance& Rhs)
+{
+	return Lhs.SlotPosition == Rhs.SlotPosition;
+}
 
 typedef TArray<FMMOARPGCharacterAppearance> FCharacterAppearances;// 一个玩家可能会有多个角色.
 
