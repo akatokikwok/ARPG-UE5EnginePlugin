@@ -99,15 +99,15 @@ namespace NetDataAnalysis
 		JsonWriter->Close();
 	}
 
-	void StringToCharacterAppearances(const FString& OutString, FCharacterAppearances& InCAs)
+	void StringToCharacterAppearances(const FString& InJsonString, FCharacterAppearances& OutCAs)
 	{
-		TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(OutString);
+		TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(InJsonString);
 		TArray<TSharedPtr<FJsonValue>> ReadRoot;
 
 		if (FJsonSerializer::Deserialize(JsonReader, ReadRoot)) {
 			for (auto& Tmp : ReadRoot) {
-				InCAs.Add(FMMOARPGCharacterAppearance());
-				FMMOARPGCharacterAppearance& InLast = InCAs.Last();
+				OutCAs.Add(FMMOARPGCharacterAppearance());
+				FMMOARPGCharacterAppearance& InLast = OutCAs.Last();
 				if (TSharedPtr<FJsonObject> InJsonObject = Tmp->AsObject()) {
 					InLast.Name = InJsonObject->GetStringField(TEXT("Name"));
 					InLast.Date = InJsonObject->GetStringField(TEXT("Date"));
@@ -121,19 +121,19 @@ namespace NetDataAnalysis
 		}
 	}
 
-	void StringToCharacterAppearances(const FString& OutString, FMMOARPGCharacterAppearance& InCA)
+	void StringToCharacterAppearances(const FString& InJsonString, FMMOARPGCharacterAppearance& OutCA)
 	{
-		TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(OutString);
+		TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(InJsonString);
 		TSharedPtr<FJsonObject> ReadRoot;
 
 		if (FJsonSerializer::Deserialize(JsonReader, ReadRoot)) {
-			InCA.Name = ReadRoot->GetStringField(TEXT("Name"));
-			InCA.Date = ReadRoot->GetStringField(TEXT("Date"));
-			InCA.Lv = ReadRoot->GetIntegerField(TEXT("Lv"));
- 			InCA.SlotPosition = ReadRoot->GetIntegerField(TEXT("SlotPosition"));
- 			InCA.LegSize = ReadRoot->GetNumberField(TEXT("LegSize"));
- 			InCA.WaistSize = ReadRoot->GetNumberField(TEXT("WaistSize"));
- 			InCA.ArmSize = ReadRoot->GetNumberField(TEXT("ArmSize"));
+			OutCA.Name = ReadRoot->GetStringField(TEXT("Name"));
+			OutCA.Date = ReadRoot->GetStringField(TEXT("Date"));
+			OutCA.Lv = ReadRoot->GetIntegerField(TEXT("Lv"));
+ 			OutCA.SlotPosition = ReadRoot->GetIntegerField(TEXT("SlotPosition"));
+ 			OutCA.LegSize = ReadRoot->GetNumberField(TEXT("LegSize"));
+ 			OutCA.WaistSize = ReadRoot->GetNumberField(TEXT("WaistSize"));
+ 			OutCA.ArmSize = ReadRoot->GetNumberField(TEXT("ArmSize"));
 		}
 	}
 

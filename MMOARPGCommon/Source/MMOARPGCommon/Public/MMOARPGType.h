@@ -114,6 +114,6 @@ namespace NetDataAnalysis
 	/** 4个负责 解析玩家形象的json方法. */
 	void MMOARPGCOMMON_API CharacterAppearancesToString(const FCharacterAppearances& InCAs, FString& OutString);
 	void MMOARPGCOMMON_API CharacterAppearancesToString(const FMMOARPGCharacterAppearance& InCA, FString& OutString);
-	void MMOARPGCOMMON_API StringToCharacterAppearances(const FString& OutString, FCharacterAppearances& InCAs);
-	void MMOARPGCOMMON_API StringToCharacterAppearances(const FString& OutString, FMMOARPGCharacterAppearance& InCA);
+	void MMOARPGCOMMON_API StringToCharacterAppearances(const FString& InJsonString, FCharacterAppearances& OutCAs);
+	void MMOARPGCOMMON_API StringToCharacterAppearances(const FString& InJsonString, FMMOARPGCharacterAppearance& OutCA);
 }
