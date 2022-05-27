@@ -21,11 +21,14 @@ enum ECheckNameType
 	NAME_EXIST,
 };
 
+/** 玩家用户信息. */
 struct MMOARPGCOMMON_API FMMOARPGUserData
 {
 	FMMOARPGUserData()
 		: ID(INDEX_NONE)
 	{}
+public:
+	void Reset();
 
 	int32 ID;
 	FString Account;
@@ -86,6 +89,19 @@ FORCEINLINE bool operator==(const FMMOARPGCharacterAppearance& Lhs, const FMMOAR
 }
 
 typedef TArray<FMMOARPGCharacterAppearance> FCharacterAppearances;// 一个玩家可能会有多个角色.
+
+/** 玩家注册信息. */
+struct MMOARPGCOMMON_API FMMOARPGPlayerRegistInfo
+{
+public:
+	FMMOARPGUserData UserInfo;// 玩家信息.
+	FMMOARPGCharacterAppearance CAInfo;// 玩家CA存档.
+public:
+	void Reset();
+	bool IsVaild();
+
+};
+
 
 /** Json-用户数据 解析的几个API. */
 namespace NetDataAnalysis

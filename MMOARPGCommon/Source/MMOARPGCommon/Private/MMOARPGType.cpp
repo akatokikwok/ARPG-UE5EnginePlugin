@@ -150,3 +150,23 @@ void FMMOARPGCharacterAppearance::Reset()
 	Name.Empty();
 	Date.Empty();
 }
+
+void FMMOARPGUserData::Reset()
+{
+	ID = INDEX_NONE;
+	Account.Empty();
+	EMail.Empty();
+	Name.Empty();
+	HeadportraitURL.Empty();
+}
+
+void FMMOARPGPlayerRegistInfo::Reset()
+{
+	UserInfo.Reset();
+	CAInfo.Reset();
+}
+
+bool FMMOARPGPlayerRegistInfo::IsVaild()
+{
+	return UserInfo.ID != INDEX_NONE;
+}
