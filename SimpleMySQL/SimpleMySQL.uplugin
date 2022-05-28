@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.1",
+	"FriendlyName": "SimpleMySQL",
+	"Description": "The database plug-in can directly access the database, which can be provided by UE4 server .",
+	"Category": "RenZhai",
+	"CreatedBy": "Other Courses",
+	"CreatedByURL": "http://renzhai.net/",
+	"DocsURL": "https://zhuanlan.zhihu.com/p/172396079",
+	"MarketplaceURL": "",
+	"SupportURL": "https://www.aboutcg.org/courseDetails/979/introduce",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "SimpleMySQL",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}

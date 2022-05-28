@@ -34,10 +34,6 @@ RenderGraphInsights/
 Runtime/
 ScriptGeneratorPlugin/
 ScriptPlugin/
-SimpleHTTP/
-SimpleMySQL/
-SimpleNetChannel/
-SimpleThread/
 Slate/
 Tests/
 VirtualProduction/
@@ -84,3 +80,15 @@ MMOARPGCommon/Binaries/Win64/UnrealEditor-MMOARPGCommon-Win64-Debug.pdb
 MMOARPGCommon/Binaries/Win64/UnrealEditor-Win64-Debug.modules
 MMOARPGCommon/Intermediate/
 MMOARPGCommon/Binaries/
+SimpleHTTP/Binaries/
+SimpleHTTP/Intermediate/
+SimpleMySQL/Binaries/
+SimpleMySQL/Intermediate/
+SimpleHTTP/Resources/
+SimpleMySQL/Resources/
+SimpleNetChannel/Binaries/
+SimpleNetChannel/Intermediate/
+SimpleNetChannel/Resources/
+SimpleThread/Binaries/
+SimpleThread/Intermediate/
+SimpleThread/Resources/

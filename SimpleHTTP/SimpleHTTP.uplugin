@@ -1,0 +1,27 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "SimpleHTTP",
+  "Description": "This plugin provides the ability to upload, download, and delete as version 1.0. In fact, this plug-in is not completed and we will complete it in the hot update course.",
+  "Category": "RenZhai",
+  "CreatedBy": "Other Courses",
+  "CreatedByURL": "https://zhuanlan.zhihu.com/p/60117613",
+  "DocsURL": "https://zhuanlan.zhihu.com/p/82195344",
+  "MarketplaceURL": "https://www.aboutcg.org/courseDetails/764/introduce",
+  "SupportURL": "https://www.aboutcg.org/courseDetails/682/introduce",
+  "EngineVersion": "5.00",
+  "CanContainContent": true,
+  "IsBetaVersion": true,
+  "Installed": true,
+  "Modules": [
+	{
+		"Name": "SimpleHTTP",
+		"Type": "Runtime",
+		"LoadingPhase": "Default",
+		"WhitelistPlatforms": [
+			"Win64"
+		]
+	}
+  ]
+}

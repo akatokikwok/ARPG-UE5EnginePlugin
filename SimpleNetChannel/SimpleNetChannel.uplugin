@@ -1,0 +1,27 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.4",
+	"FriendlyName": "SimpleNetChannel",
+	"Description": "The high concurrency server plug-in based on UDP TCP can support the development of web server and game server, as well as the cooperation between servers.",
+	"Category": "RenZhai",
+	"CreatedBy": "Other Courses",
+	"CreatedByURL": "https://renzhai.net/",
+	"DocsURL": "https://renzhai.net/361.html",
+	"MarketplaceURL": "https://renzhai.net/361.html",
+	"SupportURL": "https://www.aboutcg.org/courseDetails/1086/introduce",
+	"CanContainContent": true,
+	"IsBetaVersion": true,
+	"IsExperimentalVersion": false,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "SimpleNetChannel",
+			"Type": "Runtime",
+			"LoadingPhase": "PreLoadingScreen",
+			"WhitelistPlatforms": [
+				"Win64"
+			]
+		}
+	]
+}
