@@ -90,17 +90,6 @@ FORCEINLINE bool operator==(const FMMOARPGCharacterAppearance& Lhs, const FMMOAR
 
 typedef TArray<FMMOARPGCharacterAppearance> FCharacterAppearances;// 一个玩家可能会有多个角色.
 
-/** 玩家注册信息. */
-struct MMOARPGCOMMON_API FMMOARPGPlayerRegistInfo
-{
-public:
-	FMMOARPGUserData UserInfo;// 玩家信息.
-	FMMOARPGCharacterAppearance CAInfo;// 玩家CA存档.
-public:
-	void Reset();
-	bool IsVaild();
-
-};
 
 /**
  * 仿自虚幻的FGameplayAttributeData.
@@ -165,3 +154,21 @@ namespace NetDataAnalysis
 	/** 人物GAS属性集压入Json */
 	void MMOARPGCOMMON_API MMOARPGCharacterAttributeToString(const FMMOARPGCharacterAttribute& InCA, FString& OutString);
 }
+
+/** 玩家注册信息. */
+struct MMOARPGCOMMON_API FMMOARPGPlayerRegistInfo
+{
+public:
+	// 用户数据
+	FMMOARPGUserData UserInfo;
+
+	// 捏脸数据
+	FMMOARPGCharacterAppearance CAInfo;
+
+	// 角色属性集(GAS)
+	TMap<int32, FMMOARPGCharacterAttribute> CharacterAttributes;
+public:
+	void Reset();
+	bool IsVaild();
+
+};
