@@ -2,6 +2,32 @@
 #include "Json.h"
 #include "Serialization/JsonSerializer.h"
 
+// 私有工具方法: Json提取出人物属性集的各个字段.
+void JsonObjectToAttributeData(
+	const FString& InJsonObjectName,
+	TSharedPtr<FJsonObject> ReadRoot,
+	FMMOARPGAttributeData& InAttributeData)
+{
+	if (TSharedPtr<FJsonObject> SubJsonObject = ReadRoot->GetObjectField(InJsonObjectName)) {
+		InAttributeData.BaseValue = SubJsonObject->GetNumberField(TEXT("BaseValue"));
+		InAttributeData.CurrentValue = SubJsonObject->GetNumberField(TEXT("CurrentValue"));
+	}
+}
+
+// 私有工具方法: 人物属性集的各个字段压入JSON
+void AttributeDataToJsonObject(
+	const FString& InJsonObjectName,
+	TSharedPtr<TJsonWriter<TCHAR, TCondensedJsonPrintPolicy<TCHAR>>> JsonWriter,
+	const FMMOARPGAttributeData& InAttributeData)
+{
+	JsonWriter->WriteObjectStart(InJsonObjectName);
+	{
+		JsonWriter->WriteValue(TEXT("BaseValue"), InAttributeData.BaseValue);
+		JsonWriter->WriteValue(TEXT("CurrentValue"), InAttributeData.CurrentValue);
+	}
+	JsonWriter->WriteObjectEnd();
+}
+
 namespace NetDataAnalysis
 {
 	/** 将有值的用户数据 存进 Json String. */
@@ -137,6 +163,41 @@ namespace NetDataAnalysis
 		}
 	}
 
+	/** 从Json里解析出人物GAS属性集 */
+	bool StringToMMOARPGCharacterAttribute(const FString& InJson, FMMOARPGCharacterAttribute& Out_CA)
+	{
+		TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(InJson);
+		TSharedPtr<FJsonObject> ReadRoot;
+
+		if (FJsonSerializer::Deserialize(JsonReader, ReadRoot)) {
+			JsonObjectToAttributeData(TEXT("Health"), ReadRoot, Out_CA.Health);
+			JsonObjectToAttributeData(TEXT("MaxHealth"), ReadRoot, Out_CA.MaxHealth);
+			JsonObjectToAttributeData(TEXT("Mana"), ReadRoot, Out_CA.Mana);
+			JsonObjectToAttributeData(TEXT("MaxMana"), ReadRoot, Out_CA.MaxMana);
+
+			return true;
+		}
+
+		return false;
+	}
+
+	/** 人物GAS属性集压入Json */
+	void MMOARPGCharacterAttributeToString(const FMMOARPGCharacterAttribute& InCA, FString& OutString)
+	{
+		TSharedPtr<TJsonWriter<TCHAR, TCondensedJsonPrintPolicy<TCHAR>>> JsonWriter =
+			TJsonWriterFactory<TCHAR, TCondensedJsonPrintPolicy<TCHAR>>::Create(&OutString);
+
+		JsonWriter->WriteObjectStart();
+		{
+			AttributeDataToJsonObject(TEXT("Health"), JsonWriter, InCA.Health);
+			AttributeDataToJsonObject(TEXT("MaxHealth"), JsonWriter, InCA.MaxHealth);
+			AttributeDataToJsonObject(TEXT("Mana"), JsonWriter, InCA.Mana);
+			AttributeDataToJsonObject(TEXT("MaxMana"), JsonWriter, InCA.MaxMana);
+		}
+
+		JsonWriter->WriteObjectEnd();
+		JsonWriter->Close();
+	}
 }
 
 void FMMOARPGCharacterAppearance::Reset()

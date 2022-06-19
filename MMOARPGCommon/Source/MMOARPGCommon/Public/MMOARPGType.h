@@ -102,8 +102,51 @@ public:
 
 };
 
+/**
+ * 仿自虚幻的FGameplayAttributeData.
+ * MMOARPG项目的 AttributeData
+ */
+USTRUCT(BlueprintType)
+struct MMOARPGCOMMON_API FMMOARPGAttributeData
+{
+	GENERATED_USTRUCT_BODY()
+public:
+	FMMOARPGAttributeData()
+		: BaseValue(0.f)
+		, CurrentValue(0.f)
+	{}
 
-/** Json-用户数据 解析的几个API. */
+	UPROPERTY()
+		float BaseValue;
+
+	UPROPERTY()
+		float CurrentValue;
+};
+
+/**
+ * MMOARPG人物的GAS属性集
+ */
+USTRUCT(BlueprintType)
+struct MMOARPGCOMMON_API FMMOARPGCharacterAttribute
+{
+	GENERATED_USTRUCT_BODY()
+public:
+	UPROPERTY()
+		FMMOARPGAttributeData Health;
+
+	UPROPERTY()
+		FMMOARPGAttributeData MaxHealth;
+
+	UPROPERTY()
+		FMMOARPGAttributeData Mana;
+
+	UPROPERTY()
+		FMMOARPGAttributeData MaxMana;
+};
+
+/**
+ * Json-用户数据 解析的几个API.
+ */
 namespace NetDataAnalysis
 {
 	// 用户数据写入json.
@@ -116,4 +159,9 @@ namespace NetDataAnalysis
 	void MMOARPGCOMMON_API CharacterAppearancesToString(const FMMOARPGCharacterAppearance& InCA, FString& OutString);
 	void MMOARPGCOMMON_API StringToCharacterAppearances(const FString& InJsonString, FCharacterAppearances& OutCAs);
 	void MMOARPGCOMMON_API StringToCharacterAppearances(const FString& InJsonString, FMMOARPGCharacterAppearance& OutCA);
+
+	/** 从Json里解析出人物GAS属性集 */
+	bool MMOARPGCOMMON_API StringToMMOARPGCharacterAttribute(const FString& InJson, FMMOARPGCharacterAttribute& Out_CA);
+	/** 人物GAS属性集压入Json */
+	void MMOARPGCOMMON_API MMOARPGCharacterAttributeToString(const FMMOARPGCharacterAttribute& InCA, FString& OutString);
 }
