@@ -10,3 +10,5 @@ DEFINITION_SIMPLE_PROTOCOLS(PlayerRegistInfoRequests, 12)// 是CenterServer向db
 DEFINITION_SIMPLE_PROTOCOLS(PlayerRegistInfoResponses, 13)// 是CenterServer向db之间交互.
 DEFINITION_SIMPLE_PROTOCOLS(PlayerQuitRequests, 14)
 DEFINITION_SIMPLE_PROTOCOLS(PlayerQuitResponses, 15)
+DEFINITION_SIMPLE_PROTOCOLS(UpdateCharacterDataRequests, 26)// 请求 服务器更新GAS人物属性集
+DEFINITION_SIMPLE_PROTOCOLS(UpdateCharacterDataResponses, 27)// 响应 服务器更新GAS人物属性集
