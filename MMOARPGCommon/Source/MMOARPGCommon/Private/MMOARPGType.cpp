@@ -194,10 +194,56 @@ namespace NetDataAnalysis
 			AttributeDataToJsonObject(TEXT("Mana"), JsonWriter, InCA.Mana);
 			AttributeDataToJsonObject(TEXT("MaxMana"), JsonWriter, InCA.MaxMana);
 		}
-
 		JsonWriter->WriteObjectEnd();
 		JsonWriter->Close();
 	}
+
+	/** 把JSON语句 解析成<玩家, 属性集> */
+	bool StringToMMOARPGCharacterAttribute(const FString& InJson_GASAT, TMap<int32, FMMOARPGCharacterAttribute>& InATMap)
+	{
+		TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(InJson_GASAT);
+		TArray<TSharedPtr<FJsonValue>> ReadRoot;
+
+		if (FJsonSerializer::Deserialize(JsonReader, ReadRoot)) {
+			for (auto& Tmp : ReadRoot) {
+				if (TSharedPtr<FJsonObject> InJsonObject = Tmp->AsObject()) {
+					int32 ID = InJsonObject->GetIntegerField(TEXT("ID"));
+					FString CharacterAttributeJson = InJsonObject->GetStringField(TEXT("CA"));
+
+					InATMap.Add(ID, FMMOARPGCharacterAttribute());
+					StringToMMOARPGCharacterAttribute(CharacterAttributeJson, InATMap[ID]);
+				}
+			}
+			return true;
+		}
+
+		return false;
+	}
+
+	/** 把<玩家, 属性集> 压缩成JSON语句 */
+	void MMOARPGCharacterAttributeToString(const TMap<int32, FMMOARPGCharacterAttribute>& InATMap, FString& OutJson_AT)
+	{
+		TSharedPtr<TJsonWriter<TCHAR, TCondensedJsonPrintPolicy<TCHAR>>> JsonWriter =
+			TJsonWriterFactory<TCHAR, TCondensedJsonPrintPolicy<TCHAR>>::Create(&OutJson_AT);
+
+		JsonWriter->WriteArrayStart();
+		for (auto& Tmp : InATMap) {/* 对于属性集map的每一组pair. */
+			JsonWriter->WriteObjectStart();
+			{
+				JsonWriter->WriteValue(TEXT("ID"), Tmp.Key);
+
+				FString CharacterAttributeString;
+				MMOARPGCharacterAttributeToString(Tmp.Value, CharacterAttributeString);
+
+				JsonWriter->WriteValue(TEXT("CA"), CharacterAttributeString);
+
+			}
+			JsonWriter->WriteObjectEnd();
+		}
+		JsonWriter->WriteArrayEnd();
+		JsonWriter->Close();
+	}
+
 }
 
 void FMMOARPGCharacterAppearance::Reset()

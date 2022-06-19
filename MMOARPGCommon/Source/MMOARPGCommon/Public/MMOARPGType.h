@@ -153,6 +153,11 @@ namespace NetDataAnalysis
 	bool MMOARPGCOMMON_API StringToMMOARPGCharacterAttribute(const FString& InJson, FMMOARPGCharacterAttribute& Out_CA);
 	/** 人物GAS属性集压入Json */
 	void MMOARPGCOMMON_API MMOARPGCharacterAttributeToString(const FMMOARPGCharacterAttribute& InCA, FString& OutString);
+	
+	/** 把JSON语句 解析成<玩家, 属性集> */
+	bool MMOARPGCOMMON_API StringToMMOARPGCharacterAttribute(const FString& OutString, TMap<int32, FMMOARPGCharacterAttribute>& InCA);
+	/** 把<玩家, 属性集> 压缩成JSON语句 */
+	void MMOARPGCOMMON_API MMOARPGCharacterAttributeToString(const TMap<int32, FMMOARPGCharacterAttribute>& InCA, FString& OutString);
 }
 
 /** 玩家注册信息. */
