@@ -12,6 +12,16 @@ enum ELoginType
 	LOGIN_PASSWORD_WRONG,
 };
 
+/**
+ * 注册类型枚举.
+ */
+enum ERegistrationType
+{
+	ACCOUNT_AND_EMAIL_REPETITION_ERROR,// 名字重复
+	PLAYER_REGISTRATION_SUCCESS,// 注册成功
+	SERVER_BUG_WRONG,
+};
+
 // 检查命名类型.
 enum ECheckNameType
 {
