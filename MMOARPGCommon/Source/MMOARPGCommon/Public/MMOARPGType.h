@@ -102,8 +102,9 @@ typedef TArray<FMMOARPGCharacterAppearance> FCharacterAppearances;// 一个玩�
 
 
 /**
- * 仿自虚幻的FGameplayAttributeData.
- * MMOARPG项目的 AttributeData
+ * MMOARPG项目的 AttributeData (仿自虚幻的FGameplayAttributeData.)
+ * 具备basevalue 和 currentvalue
+ * 定义在MMOARPGType.h
  */
 USTRUCT(BlueprintType)
 struct MMOARPGCOMMON_API FMMOARPGAttributeData
@@ -131,6 +132,9 @@ struct MMOARPGCOMMON_API FMMOARPGCharacterAttribute
 	GENERATED_USTRUCT_BODY()
 public:
 	UPROPERTY()
+		FMMOARPGAttributeData Level;
+
+	UPROPERTY()
 		FMMOARPGAttributeData Health;
 
 	UPROPERTY()
@@ -141,6 +145,31 @@ public:
 
 	UPROPERTY()
 		FMMOARPGAttributeData MaxMana;
+
+	UPROPERTY()
+		FMMOARPGAttributeData PhysicsAttack;
+
+	UPROPERTY()
+		FMMOARPGAttributeData MagicAttack;
+
+	UPROPERTY()
+		FMMOARPGAttributeData PhysicsDefense;
+
+	UPROPERTY()
+		FMMOARPGAttributeData MagicDefense;
+
+	UPROPERTY()
+		FMMOARPGAttributeData AttackRange;
+
+	UPROPERTY()
+		TArray<FName> ComboAttack;
+
+	UPROPERTY()
+		TArray<FName> Skill;
+
+	UPROPERTY()
+		TArray<FName> Limbs;
+
 };
 
 /**
@@ -163,7 +192,7 @@ namespace NetDataAnalysis
 	bool MMOARPGCOMMON_API StringToMMOARPGCharacterAttribute(const FString& InJson, FMMOARPGCharacterAttribute& Out_CA);
 	/** 人物GAS属性集压入Json */
 	void MMOARPGCOMMON_API MMOARPGCharacterAttributeToString(const FMMOARPGCharacterAttribute& InCA, FString& OutString);
-	
+
 	/** 把JSON语句 解析成<玩家, 属性集> */
 	bool MMOARPGCOMMON_API StringToMMOARPGCharacterAttribute(const FString& OutString, TMap<int32, FMMOARPGCharacterAttribute>& InCA);
 	/** 把<玩家, 属性集> 压缩成JSON语句 */
