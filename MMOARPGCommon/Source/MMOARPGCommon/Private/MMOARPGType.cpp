@@ -332,3 +332,37 @@ bool FMMOARPGPlayerRegistInfo::IsVaild()
 {
 	return UserInfo.ID != INDEX_NONE;
 }
+
+// 为ComboAttack字段拼接分隔符 |
+FString FMMOARPGCharacterAttribute::ComboAttackToString() const
+{
+	return ArrayNameToString(ComboAttack, TEXT("|"));
+}
+
+// 为skill字段拼接分隔符 |
+FString FMMOARPGCharacterAttribute::SkillToString() const
+{
+	return ArrayNameToString(Skill, TEXT("|"));
+}
+
+// 为Limbs字段拼接分隔符 |
+FString FMMOARPGCharacterAttribute::LimbsToString() const
+{
+	return ArrayNameToString(Limbs, TEXT("|"));
+}
+
+// 把一个字符串叠上指定的分隔符
+FString FMMOARPGCharacterAttribute::ArrayNameToString(const TArray<FName>& Names, const TCHAR* InSplitSymbol) const
+{
+	FString String;
+	for (auto& Tmp : Names) {
+		String += Tmp.ToString() + InSplitSymbol;
+	}
+	String.RemoveFromEnd(InSplitSymbol);
+
+	if (String.IsEmpty()) {
+		String = TEXT("0");
+	}
+
+	return String;
+}

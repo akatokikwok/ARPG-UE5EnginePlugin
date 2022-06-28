@@ -169,7 +169,16 @@ public:
 
 	UPROPERTY()
 		TArray<FName> Limbs;
-
+public:
+	// 为ComboAttack字段拼接分隔符 |
+	FString ComboAttackToString() const;
+	// 为skill字段拼接分隔符 |
+	FString SkillToString() const;
+	// 为Limbs字段拼接分隔符 |
+	FString LimbsToString() const;
+private:
+	// 把一个字符串叠上指定的分隔符
+	FString	ArrayNameToString(const TArray<FName>& Names, const TCHAR* InSplitSymbol) const;
 };
 
 /**
