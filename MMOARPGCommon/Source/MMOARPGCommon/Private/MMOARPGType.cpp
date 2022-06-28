@@ -14,6 +14,16 @@ void JsonObjectToAttributeData(
 	}
 }
 
+// 同名重载. 私有工具方法: Json提取出人物属性集的各个字段.
+void JsonObjectToAttributeData(
+	const FString& InJsonObjectName,
+	TSharedPtr<FJsonObject> InObjectJson,
+	TArray<FName>& Res_AttributeData)
+{
+	// 1|2|4|5 拆解成12345
+	NetDataAnalysis::AnalysisToArrayName(InObjectJson->GetStringField(InJsonObjectName), Res_AttributeData);
+}
+
 // 私有工具方法: 人物属性集的各个字段压入JSON
 void AttributeDataToJsonObject(
 	const FString& InJsonObjectName,
@@ -28,8 +38,34 @@ void AttributeDataToJsonObject(
 	JsonWriter->WriteObjectEnd();
 }
 
+// 同名重载. 私有工具方法: 人物属性集的各个字段压入JSON
+void AttributeDataToJsonObject(
+	const FString& InJsonObjectName,
+	TSharedPtr<TJsonWriter<TCHAR, TCondensedJsonPrintPolicy<TCHAR>>> JsonWriter,
+	const TArray<FName>& InAttributeData)
+{
+	FString ValueString;
+	for (auto& Tmp : InAttributeData) {
+		ValueString += Tmp.ToString() + TEXT("|");
+	}
+	ValueString.RemoveFromEnd(TEXT("|"));
+
+	JsonWriter->WriteValue(InJsonObjectName, ValueString);
+}
+
 namespace NetDataAnalysis
 {
+	// 通用方法, 把类似1|2|3 拆解成123
+	void AnalysisToArrayName(const FString& InRowString, TArray<FName>& OutInfo)
+	{
+		TArray<FString> InfoArray;
+		InRowString.ParseIntoArray(InfoArray, TEXT("|"));
+
+		for (auto& Tmp : InfoArray) {
+			OutInfo.Add(*Tmp);
+		}
+	}
+
 	/** 将有值的用户数据 存进 Json String. */
 	void UserDataToString(const FMMOARPGUserData& InUserData, FString& OutString)
 	{
@@ -170,11 +206,20 @@ namespace NetDataAnalysis
 		TSharedPtr<FJsonObject> ReadRoot;
 
 		if (FJsonSerializer::Deserialize(JsonReader, ReadRoot)) {
+			JsonObjectToAttributeData(TEXT("Level"), ReadRoot, Out_CA.Level);
 			JsonObjectToAttributeData(TEXT("Health"), ReadRoot, Out_CA.Health);
 			JsonObjectToAttributeData(TEXT("MaxHealth"), ReadRoot, Out_CA.MaxHealth);
 			JsonObjectToAttributeData(TEXT("Mana"), ReadRoot, Out_CA.Mana);
 			JsonObjectToAttributeData(TEXT("MaxMana"), ReadRoot, Out_CA.MaxMana);
+			JsonObjectToAttributeData(TEXT("PhysicsAttack"), ReadRoot, Out_CA.PhysicsAttack);
+			JsonObjectToAttributeData(TEXT("MagicAttack"), ReadRoot, Out_CA.MagicAttack);
+			JsonObjectToAttributeData(TEXT("PhysicsDefense"), ReadRoot, Out_CA.PhysicsDefense);
+			JsonObjectToAttributeData(TEXT("MagicDefense"), ReadRoot, Out_CA.MagicDefense);
+			JsonObjectToAttributeData(TEXT("AttackRange"), ReadRoot, Out_CA.AttackRange);
 
+			JsonObjectToAttributeData(TEXT("ComboAttack"), ReadRoot, Out_CA.ComboAttack);
+			JsonObjectToAttributeData(TEXT("Skill"), ReadRoot, Out_CA.Skill);
+			JsonObjectToAttributeData(TEXT("Limbs"), ReadRoot, Out_CA.Limbs);
 			return true;
 		}
 
@@ -189,10 +234,20 @@ namespace NetDataAnalysis
 
 		JsonWriter->WriteObjectStart();
 		{
+			AttributeDataToJsonObject(TEXT("Level"), JsonWriter, InCA.Level);
 			AttributeDataToJsonObject(TEXT("Health"), JsonWriter, InCA.Health);
 			AttributeDataToJsonObject(TEXT("MaxHealth"), JsonWriter, InCA.MaxHealth);
 			AttributeDataToJsonObject(TEXT("Mana"), JsonWriter, InCA.Mana);
 			AttributeDataToJsonObject(TEXT("MaxMana"), JsonWriter, InCA.MaxMana);
+			AttributeDataToJsonObject(TEXT("PhysicsAttack"), JsonWriter, InCA.PhysicsAttack);
+			AttributeDataToJsonObject(TEXT("MagicAttack"), JsonWriter, InCA.MagicAttack);
+			AttributeDataToJsonObject(TEXT("PhysicsDefense"), JsonWriter, InCA.PhysicsDefense);
+			AttributeDataToJsonObject(TEXT("MagicDefense"), JsonWriter, InCA.MagicDefense);
+			AttributeDataToJsonObject(TEXT("AttackRange"), JsonWriter, InCA.AttackRange);
+
+			AttributeDataToJsonObject(TEXT("ComboAttack"), JsonWriter, InCA.ComboAttack);
+			AttributeDataToJsonObject(TEXT("Skill"), JsonWriter, InCA.Skill);
+			AttributeDataToJsonObject(TEXT("Limbs"), JsonWriter, InCA.Limbs);
 		}
 		JsonWriter->WriteObjectEnd();
 		JsonWriter->Close();

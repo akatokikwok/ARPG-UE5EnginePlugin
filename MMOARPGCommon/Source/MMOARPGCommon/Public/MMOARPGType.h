@@ -177,6 +177,9 @@ public:
  */
 namespace NetDataAnalysis
 {
+	// 通用方法, 把类似1|2|3 拆解成123
+	void MMOARPGCOMMON_API AnalysisToArrayName(const FString& InRowString, TArray<FName>& OutInfo);
+
 	// 用户数据写入json.
 	MMOARPGCOMMON_API void UserDataToString(const FMMOARPGUserData& InUserData, FString& OutString);// 需要导出宏.
 	// Json转译成用户数据.
@@ -197,6 +200,7 @@ namespace NetDataAnalysis
 	bool MMOARPGCOMMON_API StringToMMOARPGCharacterAttribute(const FString& OutString, TMap<int32, FMMOARPGCharacterAttribute>& InCA);
 	/** 把<玩家, 属性集> 压缩成JSON语句 */
 	void MMOARPGCOMMON_API MMOARPGCharacterAttributeToString(const TMap<int32, FMMOARPGCharacterAttribute>& InCA, FString& OutString);
+	
 }
 
 /** 玩家注册信息. */
