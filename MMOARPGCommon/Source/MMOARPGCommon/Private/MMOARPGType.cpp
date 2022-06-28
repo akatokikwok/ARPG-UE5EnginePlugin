@@ -360,6 +360,7 @@ FString FMMOARPGCharacterAttribute::ArrayNameToString(const TArray<FName>& Names
 	}
 	String.RemoveFromEnd(InSplitSymbol);
 
+	// 意外保护,防止空字符串
 	if (String.IsEmpty()) {
 		String = TEXT("0");
 	}
