@@ -161,14 +161,17 @@ public:
 	UPROPERTY()
 		FMMOARPGAttributeData AttackRange;
 
+	// 一组连招GA名字
 	UPROPERTY()
-		TArray<FName> ComboAttack;
+		TArray<FName> ComboAttack;// 一组连招GA名字.
 
+	// 一组技能GA名字
 	UPROPERTY()
-		TArray<FName> Skill;
+		TArray<FName> Skill;// 一组技能GA名字.
 
+	// 一组肢体行为GA名字
 	UPROPERTY()
-		TArray<FName> Limbs;
+		TArray<FName> Limbs;// 一组肢体行为GA名字.
 public:
 	// 为ComboAttack字段拼接分隔符 |
 	FString ComboAttackToString() const;
