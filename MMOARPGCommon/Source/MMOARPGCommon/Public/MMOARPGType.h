@@ -71,6 +71,8 @@ public:
 		, LegSize(0.f)
 		, WaistSize(0.f)
 		, ArmSize(0.f)
+		, HeadSize(0.f)
+		, ChestSize(0.f)
 	{}
 public:
 	// 还原并格式化所有CA存档里的字段.
@@ -91,6 +93,10 @@ public:
 		float WaistSize;
 	UPROPERTY()
 		float ArmSize;
+	UPROPERTY()
+		float HeadSize;
+	UPROPERTY()
+		float ChestSize;
 };
 
 FORCEINLINE bool operator==(const FMMOARPGCharacterAppearance& Lhs, const FMMOARPGCharacterAppearance& Rhs)

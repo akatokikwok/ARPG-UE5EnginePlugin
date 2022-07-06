@@ -133,6 +133,8 @@ namespace NetDataAnalysis
 			JsonWriter->WriteValue(TEXT("LegSize"), Tmp.LegSize);
 			JsonWriter->WriteValue(TEXT("WaistSize"), Tmp.WaistSize);
 			JsonWriter->WriteValue(TEXT("ArmSize"), Tmp.ArmSize);
+			JsonWriter->WriteValue(TEXT("HeadSize"), Tmp.HeadSize);
+			JsonWriter->WriteValue(TEXT("ChestSize"), Tmp.ChestSize);
 
 			JsonWriter->WriteObjectEnd();
 		}
@@ -156,6 +158,9 @@ namespace NetDataAnalysis
  			JsonWriter->WriteValue(TEXT("LegSize"), InCA.LegSize);
  			JsonWriter->WriteValue(TEXT("WaistSize"), InCA.WaistSize);
  			JsonWriter->WriteValue(TEXT("ArmSize"), InCA.ArmSize);
+			JsonWriter->WriteValue(TEXT("HeadSize"), InCA.HeadSize);
+			JsonWriter->WriteValue(TEXT("ChestSize"), InCA.ChestSize);
+
 		}
 		JsonWriter->WriteObjectEnd();
 		JsonWriter->Close();
@@ -178,6 +183,8 @@ namespace NetDataAnalysis
  					InLast.LegSize = InJsonObject->GetNumberField(TEXT("LegSize"));
  					InLast.WaistSize = InJsonObject->GetNumberField(TEXT("WaistSize"));
  					InLast.ArmSize = InJsonObject->GetNumberField(TEXT("ArmSize"));
+					InLast.HeadSize = InJsonObject->GetNumberField(TEXT("HeadSize"));
+					InLast.ChestSize = InJsonObject->GetNumberField(TEXT("ChestSize"));
 				}
 			}
 		}
@@ -196,6 +203,8 @@ namespace NetDataAnalysis
  			OutCA.LegSize = ReadRoot->GetNumberField(TEXT("LegSize"));
  			OutCA.WaistSize = ReadRoot->GetNumberField(TEXT("WaistSize"));
  			OutCA.ArmSize = ReadRoot->GetNumberField(TEXT("ArmSize"));
+			OutCA.HeadSize = ReadRoot->GetNumberField(TEXT("HeadSize"));
+			OutCA.ChestSize = ReadRoot->GetNumberField(TEXT("ChestSize"));
 		}
 	}
 
