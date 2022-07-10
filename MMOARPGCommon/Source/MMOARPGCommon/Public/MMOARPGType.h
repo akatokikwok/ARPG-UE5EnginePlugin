@@ -218,8 +218,21 @@ namespace NetDataAnalysis
 	bool MMOARPGCOMMON_API StringToMMOARPGCharacterAttribute(const FString& OutString, TMap<int32, FMMOARPGCharacterAttribute>& InCA);
 	/** 把<玩家, 属性集> 压缩成JSON语句 */
 	void MMOARPGCOMMON_API MMOARPGCharacterAttributeToString(const TMap<int32, FMMOARPGCharacterAttribute>& InCA, FString& OutString);
-	
+
 }
+
+/**
+ * DS信息数据结构(由1个CS所掌控)
+ */
+USTRUCT(BlueprintType)
+struct MMOARPGCOMMON_API FMMOARPGDicatedServerInfo
+{
+	GENERATED_USTRUCT_BODY()
+public:
+	UPROPERTY()
+		int32 ID;
+};
+
 
 /** 玩家注册信息. */
 struct MMOARPGCOMMON_API FMMOARPGPlayerRegistInfo
