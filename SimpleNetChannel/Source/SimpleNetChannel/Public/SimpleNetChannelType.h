@@ -64,7 +64,23 @@ struct SIMPLENETCHANNEL_API FSimpleAddr
 
 	uint32 IP;
 	uint32 Port;
+
+public:
+	// 因为被TMap使用,所以要用到一些哈希匹配
+	friend inline uint32 GetTypeHash(const FSimpleAddr& InKey)
+	{
+		uint32 Hash = 0;
+		Hash = HashCombine(Hash, GetTypeHash(InKey.IP + InKey.Port));
+		return Hash;
+	}
 };
+
+// 因为被TMap使用,所以要用到==重载
+inline bool operator==(const FSimpleAddr& L, const FSimpleAddr& R)
+{
+	return L.IP == R.IP && L.Port == R.Port;
+}
+
 
 struct SIMPLENETCHANNEL_API FSimpleAddrInfo
 {
