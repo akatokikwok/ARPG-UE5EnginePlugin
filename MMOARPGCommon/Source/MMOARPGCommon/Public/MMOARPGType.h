@@ -3,6 +3,15 @@
 #include "SimpleNetChannelType.h"
 #include "MMOARPGType.generated.h"
 
+/**
+ * 中心服务器链接者枚举.
+ */
+enum ECentralServerLinkType
+{
+	GAME_PLAYER_LINK,
+	GAME_DEDICATED_SERVER_LINK
+};
+
 // 登录状态(如账户错误,密码错误,服务器错误,成功之类.)
 enum ELoginType
 {
@@ -191,6 +200,38 @@ private:
 };
 
 /**
+ * DS信息数据结构(由1个CS所掌控)
+ */
+USTRUCT(BlueprintType)
+struct MMOARPGCOMMON_API FMMOARPGDicatedServerInfo
+{
+	GENERATED_USTRUCT_BODY()
+public:
+	UPROPERTY()
+		int32 ID;
+};
+
+/**
+ * 玩家注册信息.
+ */
+struct MMOARPGCOMMON_API FMMOARPGPlayerRegistInfo
+{
+public:
+	// 用户数据
+	FMMOARPGUserData UserInfo;
+
+	// 捏脸数据
+	FMMOARPGCharacterAppearance CAInfo;
+
+	// 角色属性集(GAS)
+	TMap<int32, FMMOARPGCharacterAttribute> CharacterAttributes;
+public:
+	void Reset();
+	bool IsVaild();
+
+};
+
+/**
  * Json-用户数据 解析的几个API.
  */
 namespace NetDataAnalysis
@@ -220,34 +261,3 @@ namespace NetDataAnalysis
 	void MMOARPGCOMMON_API MMOARPGCharacterAttributeToString(const TMap<int32, FMMOARPGCharacterAttribute>& InCA, FString& OutString);
 
 }
-
-/**
- * DS信息数据结构(由1个CS所掌控)
- */
-USTRUCT(BlueprintType)
-struct MMOARPGCOMMON_API FMMOARPGDicatedServerInfo
-{
-	GENERATED_USTRUCT_BODY()
-public:
-	UPROPERTY()
-		int32 ID;
-};
-
-
-/** 玩家注册信息. */
-struct MMOARPGCOMMON_API FMMOARPGPlayerRegistInfo
-{
-public:
-	// 用户数据
-	FMMOARPGUserData UserInfo;
-
-	// 捏脸数据
-	FMMOARPGCharacterAppearance CAInfo;
-
-	// 角色属性集(GAS)
-	TMap<int32, FMMOARPGCharacterAttribute> CharacterAttributes;
-public:
-	void Reset();
-	bool IsVaild();
-
-};
