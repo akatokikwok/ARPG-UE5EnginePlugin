@@ -18,4 +18,8 @@ protected:
 	virtual void Tick(float DeltaTime);
 
 	virtual void RecvProtocol(uint32 InProtocol);
+
+	//Debug
+protected:
+	bool DebugServerPrintString(const FString& InData);
 };

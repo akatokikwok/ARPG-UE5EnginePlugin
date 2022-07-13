@@ -122,6 +122,13 @@ if (SimpleManage && SimpleManage->GetController()) \
 		FSimpleProtocols<InProtocols>::Receive(SimpleChannel_SIMPLE,##args); \
 	} \
 }
+
+#define SIMPLE_SERVER_MULTICAST_SEND(SimpleManage,InProtocols,InType,Code,args...) \
+if (SimpleManage)\
+{\
+	SimpleManage->MulticastByPredicate<InProtocols,InType>(Code,##args);\
+}
+
 #else
 #define SIMPLE_PROTOCOLS_SEND(InProtocols,...) FSimpleProtocols<InProtocols>::Send(Channel,__VA_ARGS__);
 #define SIMPLE_PROTOCOLS_RECEIVE(InProtocols,...) FSimpleProtocols<InProtocols>::Receive(Channel,__VA_ARGS__);
@@ -164,6 +171,18 @@ if (SimpleManage && SimpleManage->GetController()) \
 		FSimpleProtocols<InProtocols>::Receive(SimpleChannel_SIMPLE,__VA_ARGS__); \
 	} \
 }
+
+//广播 需要指定SimpleManage 协议 和 对象类型，以及 判断是不是要广播这个对象
+#define SIMPLE_SERVER_MULTICAST_SEND(SimpleManage,InProtocols,InType,Code,...) \
+if (SimpleManage)\
+{\
+	SimpleManage->MulticastByPredicate<InProtocols,InType>(Code,__VA_ARGS__);\
+}
+
+//例如
+//GetManage()->MulticastByPredicate<SP_ChatResponses,UMMOARPGCenterServerObject>(
+//	A,PlayerID, ContentString, Index);
+
 #endif // PLATFORM_WINDOWS
 
 //SIMPLE_PROTOCOLS_SEND(MMM_Test, 12, TEXT("Hello"), 10.f);

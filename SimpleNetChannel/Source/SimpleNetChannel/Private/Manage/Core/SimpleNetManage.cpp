@@ -517,6 +517,23 @@ FSimpleAddr FSimpleNetManage::GetSimpleAddr(const TCHAR* InIP, uint32 InPort)
 	return Addr;
 }
 
+void FSimpleNetManage::GetLocalIPAndPort(FString& InIP, uint32& Port)
+{
+	if (FSimpleNetGlobalInfo::Get()->GetInfo().PublicIP.IsEmpty())
+	{
+		bool EnableBind = false;
+		TSharedRef<FInternetAddr> LocalAddr = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->GetLocalHostAddr(*GLog, EnableBind);
+
+		InIP = LocalAddr->ToString(false);
+	}
+	else
+	{
+		InIP = FSimpleNetGlobalInfo::Get()->GetInfo().PublicIP;
+	}
+
+	Port = 7777;
+}
+
 USimpleNetworkObject* FSimpleNetManage::GetNetManageNetworkObject(FSimpleNetManage* InSimpleNetManage, const FSimpleAddrInfo& AddrInfo)
 {
 	if (InSimpleNetManage)

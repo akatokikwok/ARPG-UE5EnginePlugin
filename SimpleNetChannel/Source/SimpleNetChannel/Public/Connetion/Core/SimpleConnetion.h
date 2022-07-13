@@ -43,23 +43,27 @@ public:
 
 	FSimpleChannel* GetMainChannel();
 	FSimpleChannel* GetChannel(const FGuid &InChannelGuid);
+
 	void SetLinkState(ESimpleNetLinkState NewLinkState);
 	void SetConnetionType(ESimpleConnetionType InType);
 	void SetManage(FSimpleNetManage *InManage);
-	FORCEINLINE FSimpleNetManage *GetManage() { return Manage;}
-	FORCEINLINE ESimpleNetLinkState GetLinkState()const { return LinkState;}
 
 	void GetChannelActiveID(TArray<FGuid>& InIDs);
 public:
 	void Lock();
 	bool IsLock()const { return bLock; }
 	void UnLock();
+
 public:
+	FORCEINLINE FSimpleNetManage* GetManage() { return Manage; }
+	FORCEINLINE ESimpleNetLinkState GetLinkState()const { return LinkState; }
+	FORCEINLINE ESimpleConnetionType GetConnetionType()const { return ConnetionType; }
 	FORCEINLINE ESimpleConnetionLinkType GetState() { return State; }
+	FORCEINLINE	TArray<FSimpleChannel>& GetChannels() { return Channels; }
 protected:
 	TArray<FSimpleChannel> Channels;//
-	ESimpleConnetionLinkType State;
-	ESimpleNetLinkState LinkState;
+	ESimpleConnetionLinkType State;//初始化阶段
+	ESimpleNetLinkState LinkState;//Connet的状态
 	ESimpleConnetionType ConnetionType;
 
 	FSocket* Socket;//TCP UDP

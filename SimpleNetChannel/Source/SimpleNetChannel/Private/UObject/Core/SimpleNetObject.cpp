@@ -40,6 +40,13 @@ void USimpleNetworkObject::DestroySelf()
 	}
 }
 
+bool USimpleNetworkObject::IsMainConnetion()
+{
+	check(GetConnetion());
+
+	return GetConnetion()->GetConnetionType()== ESimpleConnetionType::CONNETION_MAIN_LISTEN;
+}
+
 void USimpleNetworkObject::Close()
 {
 	RecvDelegate.Clear();
@@ -67,7 +74,6 @@ FSimpleChannel* USimpleNetworkObject::GetChannel()
 {
 	return Channel;
 }
-
 
 bool USimpleNetworkObject::GetRemoteAddrInfo(FSimpleAddrInfo& InAddrInfo)
 {

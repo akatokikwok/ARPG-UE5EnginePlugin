@@ -16,6 +16,7 @@ class USimpleController;
 class FSimpleConnetion;
 class FInternetAddr;
 class USimpleNetworkObject;
+
 class SIMPLENETCHANNEL_API FSimpleNetManage
 #ifdef PLATFORM_PROJECT
 	:public FTickableGameObject
@@ -56,6 +57,15 @@ public:
 
 	static FString GetAddrString(const FSimpleAddr& InAddr);
 	static FSimpleAddr GetSimpleAddr(const TCHAR* InIP,uint32 InPort);
+	static void GetLocalIPAndPort(FString &InIP,uint32 &Port);
+
+	//该API使用需要保证你当前的网络管理是服务器 它会遍历服务器的远端链接对象
+	template<class T>
+	void FindRemoteNetworkObjectByLambda(TFunction<ESimpleNetManageCallType(T*)> InImplement);
+
+	//高效的自定义广播 前提是必须是服务器
+	template<int32 InProtocols, class T, typename ...ParamTypes>
+	void MulticastByPredicate(TFunction<bool(T*)> InImplement, ParamTypes &...Param);
 protected:
 	virtual bool CloseSocket();
 public:
@@ -90,7 +100,7 @@ protected:
 
 /*
 * The following website explains how to use this set of plug-ins
-* DocURL��
+* DocURL：
 * Here's how to develop the current plug-in
 * MarketplaceURL :     https://www.aboutcg.org/courseDetails/1086/introduce
 * If you want to learn more about the UE4 tutorial, please refer to:
@@ -102,3 +112,51 @@ protected:
 * Sina blog            https://weibo.com/bzrz/profile?S=6cm7d0 // this blog hasn't been used for three or four years now.
 * Maybe you can re enable the first connection later
 */
+#include "Channel/SimpleChannel.h"
+
+class USimpleNetworkObject;
+template<class T>
+void FSimpleNetManage::FindRemoteNetworkObjectByLambda(TFunction<ESimpleNetManageCallType(T*)> InImplement)
+{
+	for (auto& Tmp : Net.RemoteConnetions)
+	{
+		ESimpleNetManageCallType SimpleNetManageCallType = ESimpleNetManageCallType::INPROGRESS;
+		for (auto& TmpChannel : Tmp->GetChannels())
+		{
+			if (TmpChannel.IsValid())
+			{
+				SimpleNetManageCallType = InImplement(TmpChannel.GetNetObject<T>());
+				if (SimpleNetManageCallType == ESimpleNetManageCallType::PROGRESS_COMPLETE)
+				{
+					break;
+				}	
+			}
+		}
+
+		if (SimpleNetManageCallType == ESimpleNetManageCallType::PROGRESS_COMPLETE)
+		{
+			break;
+		}
+	}
+}
+
+//广播指定的链接端
+template<int32 InProtocols,class T, typename ...ParamTypes>
+void FSimpleNetManage::MulticastByPredicate(TFunction<bool(T*)> InImplement,ParamTypes &...Param)
+{
+	for (auto& Tmp : Net.RemoteConnetions)
+	{
+		ESimpleNetManageCallType SimpleNetManageCallType = ESimpleNetManageCallType::INPROGRESS;
+		for (auto& TmpChannel : Tmp->GetChannels())
+		{
+			if (TmpChannel.IsValid())
+			{
+				//是否满足可以广播的条件
+				if (InImplement(TmpChannel.GetNetObject<T>()))
+				{
+					FSimpleProtocols<InProtocols>::Send(&TmpChannel,Param...);
+				}
+			}
+		}
+	}
+}
