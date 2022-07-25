@@ -8,8 +8,8 @@
  */
 enum ECentralServerLinkType
 {
-	GAME_PLAYER_LINK,
-	GAME_DEDICATED_SERVER_LINK
+	GAME_PLAYER_LINK,// 游戏玩家
+	GAME_DEDICATED_SERVER_LINK// 游戏的DS
 };
 
 // 登录状态(如账户错误,密码错误,服务器错误,成功之类.)

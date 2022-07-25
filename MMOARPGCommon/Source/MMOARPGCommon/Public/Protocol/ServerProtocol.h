@@ -13,6 +13,6 @@ DEFINITION_SIMPLE_PROTOCOLS(PlayerQuitResponses, 15)
 DEFINITION_SIMPLE_PROTOCOLS(UpdateCharacterDataRequests, 26)// 请求 服务器更新GAS人物属性集
 DEFINITION_SIMPLE_PROTOCOLS(UpdateCharacterDataResponses, 27)// 响应 服务器更新GAS人物属性集
 
-// 身份复制
-DEFINITION_SIMPLE_PROTOCOLS(IdentityReplicationRequests, 28) 
-DEFINITION_SIMPLE_PROTOCOLS(IdentityReplicationResponses, 29)
+
+DEFINITION_SIMPLE_PROTOCOLS(IdentityReplicationRequests, 28) // 身份覆写协议Request.
+DEFINITION_SIMPLE_PROTOCOLS(IdentityReplicationResponses, 29)// 身份覆写协议Response.
