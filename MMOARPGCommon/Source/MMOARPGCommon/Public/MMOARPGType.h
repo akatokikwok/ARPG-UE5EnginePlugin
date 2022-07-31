@@ -84,6 +84,8 @@ public:
 		, ChestSize(0.f)
 	{}
 public:
+	// 判断本CA是否合法.
+	bool IsVaild() const { return SlotPosition != INDEX_NONE; }
 	// 还原并格式化所有CA存档里的字段.
 	void Reset();
 
