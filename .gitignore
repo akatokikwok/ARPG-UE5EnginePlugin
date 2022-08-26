@@ -93,3 +93,7 @@ SimpleThread/Binaries/
 SimpleThread/Intermediate/
 SimpleThread/Resources/
 SimpleNetChannel/Source/ThirdParty/SimpleSNCLibrary/
+SimpleHotUpdate/Binaries/
+SimpleHotUpdate/Content/
+SimpleHotUpdate/Engine/
+SimpleHotUpdate/Intermediate/

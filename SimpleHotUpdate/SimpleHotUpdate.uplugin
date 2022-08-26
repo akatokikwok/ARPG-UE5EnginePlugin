@@ -1,0 +1,34 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.2",
+	"FriendlyName": "SimpleHotUpdate",
+	"Description": "The intelligent hot update plug-in supports one click upload and one click deployment, and the client can download updates synchronously.",
+	"Category": "RenZhai",
+	"CreatedBy": "Other Courses",
+	"CreatedByURL": "https://zhuanlan.zhihu.com/p/60117613",
+	"DocsURL": "https://zhuanlan.zhihu.com/p/428365913",
+	"MarketplaceURL": "https://renzhai.net/470.html",
+	"SupportURL": "https://www.aboutcg.org/courseDetails/764/introduce",
+	"CanContainContent": true,
+	"IsBetaVersion": true,
+	"IsExperimentalVersion": false,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "SimpleHotUpdate",
+			"Type": "Runtime",
+			"LoadingPhase": "PreLoadingScreen"
+		},
+		{
+			"Name": "SimpleHotPak",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "SimpleHotUpdateEditor",
+			"Type": "Editor",
+			"LoadingPhase": "Default"
+		}
+	]
+}
