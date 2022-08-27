@@ -178,6 +178,12 @@ public:
 	UPROPERTY()
 		FMMOARPGAttributeData AttackRange;
 
+	UPROPERTY()
+		FMMOARPGAttributeData EmpiricalValue;
+
+	UPROPERTY()
+		FMMOARPGAttributeData MaxEmpiricalValue;
+
 	// 一组连招GA名字
 	UPROPERTY()
 		TArray<FName> ComboAttack;// 一组连招GA名字.
