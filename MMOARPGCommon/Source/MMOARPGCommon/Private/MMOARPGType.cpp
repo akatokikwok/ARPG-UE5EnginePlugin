@@ -225,6 +225,8 @@ namespace NetDataAnalysis
 			JsonObjectToAttributeData(TEXT("PhysicsDefense"), ReadRoot, Out_CA.PhysicsDefense);
 			JsonObjectToAttributeData(TEXT("MagicDefense"), ReadRoot, Out_CA.MagicDefense);
 			JsonObjectToAttributeData(TEXT("AttackRange"), ReadRoot, Out_CA.AttackRange);
+			JsonObjectToAttributeData(TEXT("EmpiricalValue"), ReadRoot, Out_CA.EmpiricalValue);
+			JsonObjectToAttributeData(TEXT("MaxEmpiricalValue"), ReadRoot, Out_CA.MaxEmpiricalValue);
 
 			JsonObjectToAttributeData(TEXT("ComboAttack"), ReadRoot, Out_CA.ComboAttack);
 			JsonObjectToAttributeData(TEXT("Skill"), ReadRoot, Out_CA.Skill);
@@ -253,6 +255,8 @@ namespace NetDataAnalysis
 			AttributeDataToJsonObject(TEXT("PhysicsDefense"), JsonWriter, InCA.PhysicsDefense);
 			AttributeDataToJsonObject(TEXT("MagicDefense"), JsonWriter, InCA.MagicDefense);
 			AttributeDataToJsonObject(TEXT("AttackRange"), JsonWriter, InCA.AttackRange);
+			AttributeDataToJsonObject(TEXT("EmpiricalValue"), JsonWriter, InCA.EmpiricalValue);
+			AttributeDataToJsonObject(TEXT("MaxEmpiricalValue"), JsonWriter, InCA.MaxEmpiricalValue);
 
 			AttributeDataToJsonObject(TEXT("ComboAttack"), JsonWriter, InCA.ComboAttack);
 			AttributeDataToJsonObject(TEXT("Skill"), JsonWriter, InCA.Skill);
