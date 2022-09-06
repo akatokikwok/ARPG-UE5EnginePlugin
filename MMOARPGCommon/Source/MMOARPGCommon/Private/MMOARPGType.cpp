@@ -364,6 +364,13 @@ FString FMMOARPGCharacterAttribute::LimbsToString() const
 	return ArrayNameToString(Limbs, TEXT("|"));
 }
 
+void FMMOARPGCharacterAttribute::Clear()
+{
+	Limbs.Empty();
+	Skill.Empty();
+	ComboAttack.Empty();
+}
+
 // 把一个字符串叠上指定的分隔符
 FString FMMOARPGCharacterAttribute::ArrayNameToString(const TArray<FName>& Names, const TCHAR* InSplitSymbol) const
 {

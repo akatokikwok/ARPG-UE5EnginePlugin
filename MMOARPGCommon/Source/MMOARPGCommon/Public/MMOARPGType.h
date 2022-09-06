@@ -141,6 +141,26 @@ public:
 };
 
 /**
+ * 人物属性类型
+ */
+enum class MMOARPGCharacterAttributeType :uint8
+{
+	ATTRIBUTETYPE_NONE,
+	ATTRIBUTETYPE_LEVEL,
+	ATTRIBUTETYPE_HEALTH,
+	ATTRIBUTETYPE_MAXHEALTH,
+	ATTRIBUTETYPE_MANA,
+	ATTRIBUTETYPE_MAXMANA,
+	ATTRIBUTETYPE_PHYSICSATTACK,
+	ATTRIBUTETYPE_MAGICATTACK,
+	ATTRIBUTETYPE_PHYSICSDEFENSE,
+	ATTRIBUTETYPE_MAGICDEFENSE,
+	ATTRIBUTETYPE_ATTACKRANGE,
+	ATTRIBUTETYPE_EMPIRICALVALUE,
+	ATTRIBUTETYPE_MAXEMPIRICALVALUE,
+};
+
+/**
  * MMOARPG人物的GAS属性集
  */
 USTRUCT(BlueprintType)
@@ -202,6 +222,8 @@ public:
 	FString SkillToString() const;
 	// 为Limbs字段拼接分隔符 |
 	FString LimbsToString() const;
+
+	void Clear();
 private:
 	// 把一个字符串叠上指定的分隔符
 	FString	ArrayNameToString(const TArray<FName>& Names, const TCHAR* InSplitSymbol) const;
