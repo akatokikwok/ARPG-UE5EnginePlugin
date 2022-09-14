@@ -26,6 +26,8 @@ public class MMOARPGCommon : ModuleRules
 			new string[]
 			{
 				"Core",
+				"SimpleNetChannel",
+				"Json"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -35,8 +37,6 @@ public class MMOARPGCommon : ModuleRules
 			new string[]
 			{
 				"CoreUObject",
-				"SimpleNetChannel",
-				"Json"
 // 				"Engine",/* 独立程序里是万万不可以使用Engine模块.*/
 // 				"Slate",
 // 				"SlateCore",
