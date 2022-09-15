@@ -141,7 +141,7 @@ public:
 };
 
 /**
- * 人物属性类型
+ * 人物属性字段类型(如等级,血,蓝条,攻击范围)
  */
 enum class MMOARPGCharacterAttributeType :uint8
 {
