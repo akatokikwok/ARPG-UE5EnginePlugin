@@ -15,6 +15,7 @@ enum class EGamePlayTags0 : uint64
     Player_State_Die = 8,
     Player_State_Hit = 16,
     Player_Buff_Damage = 32,
+    Player_Skill_WhirlwindBlow = 64,
 };
 
 /* Convert GamplayTag tag to enumeration */
@@ -37,6 +38,9 @@ EGamePlayTags0  NameToEGamePlayTags0(const FName &InName)
 	} else
 	if (InName == TEXT("Player.Buff.Damage")) {
 		 return EGamePlayTags0::Player_Buff_Damage;
+	} else
+	if (InName == TEXT("Player.Skill.WhirlwindBlow")) {
+		 return EGamePlayTags0::Player_Skill_WhirlwindBlow;
 	} 
 
     return (EGamePlayTags0)0llu;
@@ -64,6 +68,9 @@ FString  EGamePlayTags0ToName(const EGamePlayTags0& InTag)
 
 		case EGamePlayTags0::Player_Buff_Damage:
 		 return TEXT("Player.Buff.Damage");
+
+		case EGamePlayTags0::Player_Skill_WhirlwindBlow:
+		 return TEXT("Player.Skill.WhirlwindBlow");
 
 	}
 
@@ -98,6 +105,10 @@ void  NameToEGamePlayTags0s(const FName &InName,TArray<FName> &OutName)
 	{
 		OutName.AddUnique(TEXT("Player.Buff.Damage"));
 	}
+	if(Tags & (int32)EGamePlayTags0::Player_Skill_WhirlwindBlow)
+	{
+		OutName.AddUnique(TEXT("Player.Skill.WhirlwindBlow"));
+	}
 }
 
 /* Convert multiple enumerations into one label for storage. */
@@ -129,6 +140,10 @@ FName  EGamePlayTags0sToName(const TArray<FName> &InName)
 		if(Tmp == FName(TEXT("Player.Buff.Damage")))
 		{
 			Tags |= (uint64)EGamePlayTags0::Player_Buff_Damage;
+		} else
+		if(Tmp == FName(TEXT("Player.Skill.WhirlwindBlow")))
+		{
+			Tags |= (uint64)EGamePlayTags0::Player_Skill_WhirlwindBlow;
 		} 
 	}
 
