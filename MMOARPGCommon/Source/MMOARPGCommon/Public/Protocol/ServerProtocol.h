@@ -16,3 +16,7 @@ DEFINITION_SIMPLE_PROTOCOLS(UpdateCharacterDataResponses, 27)// 响应 服务器
 
 DEFINITION_SIMPLE_PROTOCOLS(IdentityReplicationRequests, 28) // 身份覆写协议Request.
 DEFINITION_SIMPLE_PROTOCOLS(IdentityReplicationResponses, 29)// 身份覆写协议Response.
+
+
+DEFINITION_SIMPLE_PROTOCOLS(CharacterResurrectionRequests, 34)// 重生请求
+DEFINITION_SIMPLE_PROTOCOLS(CharacterResurrectionResponses, 35)// 重生响应
