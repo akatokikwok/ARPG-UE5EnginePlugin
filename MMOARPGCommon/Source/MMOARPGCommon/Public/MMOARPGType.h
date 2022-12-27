@@ -215,6 +215,11 @@ public:
 	// 一组肢体行为GA名字
 	UPROPERTY()
 		TArray<FName> Limbs;// 一组肢体行为GA名字.
+
+	// 装配好的技能名字
+	UPROPERTY()
+		FString SkillAssemblyString;
+
 public:
 	// 为ComboAttack字段拼接分隔符 |
 	FString ComboAttackToString() const;

@@ -231,6 +231,9 @@ namespace NetDataAnalysis
 			JsonObjectToAttributeData(TEXT("ComboAttack"), ReadRoot, Out_CA.ComboAttack);
 			JsonObjectToAttributeData(TEXT("Skill"), ReadRoot, Out_CA.Skill);
 			JsonObjectToAttributeData(TEXT("Limbs"), ReadRoot, Out_CA.Limbs);
+
+			// 读取出装配好的技能
+			Out_CA.SkillAssemblyString = ReadRoot->GetStringField(TEXT("SkillAssemblyString"));
 			return true;
 		}
 
@@ -261,6 +264,9 @@ namespace NetDataAnalysis
 			AttributeDataToJsonObject(TEXT("ComboAttack"), JsonWriter, InCA.ComboAttack);
 			AttributeDataToJsonObject(TEXT("Skill"), JsonWriter, InCA.Skill);
 			AttributeDataToJsonObject(TEXT("Limbs"), JsonWriter, InCA.Limbs);
+
+			// 写入装配好的技能.
+			JsonWriter->WriteValue(TEXT("SkillAssemblyString"), InCA.SkillAssemblyString);
 		}
 		JsonWriter->WriteObjectEnd();
 		JsonWriter->Close();
