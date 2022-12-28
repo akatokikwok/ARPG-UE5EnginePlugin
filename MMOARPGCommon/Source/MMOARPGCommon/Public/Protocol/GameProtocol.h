@@ -10,3 +10,6 @@ DEFINITION_SIMPLE_PROTOCOLS(CharacterUpgradeLevelRequests, 30)// 升级
 DEFINITION_SIMPLE_PROTOCOLS(CharacterUpgradeLevelResponses, 31)
 DEFINITION_SIMPLE_PROTOCOLS(UpdateAttributeRequests, 32)// 更新人物属性集响应
 DEFINITION_SIMPLE_PROTOCOLS(UpdateAttributeaResponses, 33)
+
+DEFINITION_SIMPLE_PROTOCOLS(UpdateSkillAssemblyRequests, 36)// 技能装配
+DEFINITION_SIMPLE_PROTOCOLS(UpdateSkillAssemblyResponses, 37)// 
