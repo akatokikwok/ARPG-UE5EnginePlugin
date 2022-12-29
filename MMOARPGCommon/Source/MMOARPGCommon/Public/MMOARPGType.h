@@ -161,6 +161,23 @@ enum class MMOARPGCharacterAttributeType :uint8
 };
 
 /**
+ * 封装技能槽位的结构体
+ */
+USTRUCT(BlueprintType)
+struct FMMOARPGAttributeSlot
+{
+	GENERATED_USTRUCT_BODY()
+public:
+	// 技能槽位,本质上是一组技能名字
+	UPROPERTY()
+		TArray<FName> Slots;// 技能槽位,本质上是一组技能名字
+
+public:
+	// 把一个字符串叠上指定的分隔符
+	FString ToString() const;
+};
+
+/**
  * MMOARPG人物的GAS属性集
  */
 USTRUCT(BlueprintType)
@@ -206,32 +223,38 @@ public:
 
 	// 一组连招GA名字
 	UPROPERTY()
-		TArray<FName> ComboAttack;// 一组连招GA名字.
+		FMMOARPGAttributeSlot ComboAttack;// 一组连招GA名字.
 
 	// 一组技能GA名字
 	UPROPERTY()
-		TArray<FName> Skill;// 一组技能GA名字.
+		FMMOARPGAttributeSlot Skill;// 一组技能GA名字.
 
 	// 一组肢体行为GA名字
 	UPROPERTY()
-		TArray<FName> Limbs;// 一组肢体行为GA名字.
+		FMMOARPGAttributeSlot Limbs;// 一组肢体行为GA名字.
 
 	// 装配好的技能名字
 	UPROPERTY()
-		FString SkillAssemblyString;
+		FString SkillAssemblyString;// 装配好的技能名字
 
 public:
-	// 为ComboAttack字段拼接分隔符 |
-	FString ComboAttackToString() const;
-	// 为skill字段拼接分隔符 |
-	FString SkillToString() const;
-	// 为Limbs字段拼接分隔符 |
-	FString LimbsToString() const;
-
+	// 集体清除所有GA技能槽名字
 	void Clear();
-private:
+
+public:
+#pragma region 弃用接口
+	//// 为ComboAttack字段拼接分隔符 |
+	//FString ComboAttackToString() const;
+	
+	//// 为skill字段拼接分隔符 |
+	//FString SkillToString() const;
+
+	//// 为Limbs字段拼接分隔符 |
+	//FString LimbsToString() const;
+
 	// 把一个字符串叠上指定的分隔符
-	FString	ArrayNameToString(const TArray<FName>& Names, const TCHAR* InSplitSymbol) const;
+	//FString	ArrayNameToString(const TArray<FName>& Names, const TCHAR* InSplitSymbol) const;
+#pragma endregion 弃用接口
 };
 
 /**
@@ -295,4 +318,8 @@ namespace NetDataAnalysis
 	/** 把<玩家, 属性集> 压缩成JSON语句 */
 	void MMOARPGCOMMON_API MMOARPGCharacterAttributeToString(const TMap<int32, FMMOARPGCharacterAttribute>& InCA, FString& OutString);
 
+	/** 把JSON语句 解析成 技能槽 */
+	bool MMOARPGCOMMON_API StringToMMOARPGAttributeSlot(const FString& IntString, FMMOARPGAttributeSlot& OutAS);
+	/** 把技能槽 压缩成JSON语句 */
+	void MMOARPGCOMMON_API MMOARPGAttributeSlotToString(const FMMOARPGAttributeSlot& InAS, FString& OutString);
 }

@@ -228,9 +228,9 @@ namespace NetDataAnalysis
 			JsonObjectToAttributeData(TEXT("EmpiricalValue"), ReadRoot, Out_CA.EmpiricalValue);
 			JsonObjectToAttributeData(TEXT("MaxEmpiricalValue"), ReadRoot, Out_CA.MaxEmpiricalValue);
 
-			JsonObjectToAttributeData(TEXT("ComboAttack"), ReadRoot, Out_CA.ComboAttack);
-			JsonObjectToAttributeData(TEXT("Skill"), ReadRoot, Out_CA.Skill);
-			JsonObjectToAttributeData(TEXT("Limbs"), ReadRoot, Out_CA.Limbs);
+			JsonObjectToAttributeData(TEXT("ComboAttack"), ReadRoot, Out_CA.ComboAttack.Slots);
+			JsonObjectToAttributeData(TEXT("Skill"), ReadRoot, Out_CA.Skill.Slots);
+			JsonObjectToAttributeData(TEXT("Limbs"), ReadRoot, Out_CA.Limbs.Slots);
 
 			// 读取出装配好的技能
 			Out_CA.SkillAssemblyString = ReadRoot->GetStringField(TEXT("SkillAssemblyString"));
@@ -261,9 +261,9 @@ namespace NetDataAnalysis
 			AttributeDataToJsonObject(TEXT("EmpiricalValue"), JsonWriter, InCA.EmpiricalValue);
 			AttributeDataToJsonObject(TEXT("MaxEmpiricalValue"), JsonWriter, InCA.MaxEmpiricalValue);
 
-			AttributeDataToJsonObject(TEXT("ComboAttack"), JsonWriter, InCA.ComboAttack);
-			AttributeDataToJsonObject(TEXT("Skill"), JsonWriter, InCA.Skill);
-			AttributeDataToJsonObject(TEXT("Limbs"), JsonWriter, InCA.Limbs);
+			AttributeDataToJsonObject(TEXT("ComboAttack"), JsonWriter, InCA.ComboAttack.Slots);
+			AttributeDataToJsonObject(TEXT("Skill"), JsonWriter, InCA.Skill.Slots);
+			AttributeDataToJsonObject(TEXT("Limbs"), JsonWriter, InCA.Limbs.Slots);
 
 			// 写入装配好的技能.
 			JsonWriter->WriteValue(TEXT("SkillAssemblyString"), InCA.SkillAssemblyString);
@@ -318,7 +318,36 @@ namespace NetDataAnalysis
 		JsonWriter->Close();
 	}
 
+	/** 把JSON语句 解析成 技能槽 */
+	bool StringToMMOARPGAttributeSlot(const FString& IntString, FMMOARPGAttributeSlot& OutAS)
+	{
+		TSharedRef<TJsonReader<>> JsonReader = TJsonReaderFactory<>::Create(IntString);
+		TArray<TSharedPtr<FJsonValue>> ReadRoot;
+
+		if (FJsonSerializer::Deserialize(JsonReader, ReadRoot)) {
+			for (auto& Tmp : ReadRoot) {
+				OutAS.Slots.Add(*Tmp->AsString());				
+			}
+			return true;
+		}
+		return false;
+	}
+
+	/** 把技能槽 压缩成JSON语句 */
+	void MMOARPGAttributeSlotToString(const FMMOARPGAttributeSlot& InAS, FString& OutString)
+	{
+		TSharedPtr<TJsonWriter<TCHAR, TCondensedJsonPrintPolicy<TCHAR>>> JsonWriter =
+			TJsonWriterFactory<TCHAR, TCondensedJsonPrintPolicy<TCHAR>>::Create(&OutString);
+
+		JsonWriter->WriteArrayStart();
+		for (auto& Tmp : InAS.Slots) {
+			JsonWriter->WriteValue(Tmp.ToString());
+		}
+		JsonWriter->WriteArrayEnd();
+		JsonWriter->Close();
+	}
 }
+
 
 void FMMOARPGCharacterAppearance::Reset()
 {
@@ -351,37 +380,21 @@ bool FMMOARPGPlayerRegistInfo::IsVaild()
 {
 	return UserInfo.ID != INDEX_NONE;
 }
-
-// 为ComboAttack字段拼接分隔符 |
-FString FMMOARPGCharacterAttribute::ComboAttackToString() const
-{
-	return ArrayNameToString(ComboAttack, TEXT("|"));
-}
-
-// 为skill字段拼接分隔符 |
-FString FMMOARPGCharacterAttribute::SkillToString() const
-{
-	return ArrayNameToString(Skill, TEXT("|"));
-}
-
-// 为Limbs字段拼接分隔符 |
-FString FMMOARPGCharacterAttribute::LimbsToString() const
-{
-	return ArrayNameToString(Limbs, TEXT("|"));
-}
-
+// 集体清除所有GA技能槽名字
 void FMMOARPGCharacterAttribute::Clear()
 {
-	Limbs.Empty();
-	Skill.Empty();
-	ComboAttack.Empty();
+	Limbs.Slots.Empty();
+	Skill.Slots.Empty();
+	ComboAttack.Slots.Empty();
 }
 
 // 把一个字符串叠上指定的分隔符
-FString FMMOARPGCharacterAttribute::ArrayNameToString(const TArray<FName>& Names, const TCHAR* InSplitSymbol) const
+FString FMMOARPGAttributeSlot::ToString() const
 {
+	TCHAR* InSplitSymbol = TEXT("|");// 暂定1个分隔符"|"
+
 	FString String;
-	for (auto& Tmp : Names) {
+	for (auto& Tmp : Slots) {
 		String += Tmp.ToString() + InSplitSymbol;
 	}
 	String.RemoveFromEnd(InSplitSymbol);
@@ -393,3 +406,41 @@ FString FMMOARPGCharacterAttribute::ArrayNameToString(const TArray<FName>& Names
 
 	return String;
 }
+
+
+#pragma region 弃用接口
+// 为ComboAttack字段拼接分隔符 |
+//FString FMMOARPGCharacterAttribute::ComboAttackToString() const
+//{
+//	return ArrayNameToString(ComboAttack, TEXT("|"));
+//}
+
+// 为skill字段拼接分隔符 |
+//FString FMMOARPGCharacterAttribute::SkillToString() const
+//{
+//	return ArrayNameToString(Skill, TEXT("|"));
+//}
+
+// 为Limbs字段拼接分隔符 |
+//FString FMMOARPGCharacterAttribute::LimbsToString() const
+//{
+//	return ArrayNameToString(Limbs, TEXT("|"));
+//}
+
+// 把一个字符串叠上指定的分隔符
+//FString FMMOARPGCharacterAttribute::ArrayNameToString(const TArray<FName>& Names, const TCHAR* InSplitSymbol) const
+//{
+//	FString String;
+//	for (auto& Tmp : Names) {
+//		String += Tmp.ToString() + InSplitSymbol;
+//	}
+//	String.RemoveFromEnd(InSplitSymbol);
+//
+//	// 意外保护,防止空字符串
+//	if (String.IsEmpty()) {
+//		String = TEXT("0");
+//	}
+//
+//	return String;
+//}
+#pragma endregion 弃用接口
