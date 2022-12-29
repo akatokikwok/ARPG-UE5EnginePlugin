@@ -168,13 +168,18 @@ struct FMMOARPGAttributeSlot
 {
 	GENERATED_USTRUCT_BODY()
 public:
+	FMMOARPGAttributeSlot() {};
+	FMMOARPGAttributeSlot(const TArray<FName>& InSlots)
+		:Slots((InSlots))// 使用movetemp避免拷贝
+	{}
+
+	// 把一个字符串叠上指定的分隔符
+	FString ToString() const;
+
+public:
 	// 技能槽位,本质上是一组技能名字
 	UPROPERTY()
 		TArray<FName> Slots;// 技能槽位,本质上是一组技能名字
-
-public:
-	// 把一个字符串叠上指定的分隔符
-	FString ToString() const;
 };
 
 /**
