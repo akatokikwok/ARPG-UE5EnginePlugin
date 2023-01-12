@@ -226,6 +226,12 @@ public:
 	UPROPERTY()
 		FMMOARPGAttributeData MaxEmpiricalValue;
 
+	UPROPERTY()
+		FMMOARPGAttributeData StaminaValue;
+
+	UPROPERTY()
+		FMMOARPGAttributeData MaxStaminaValue;
+
 	// 一组连招GA名字
 	UPROPERTY()
 		FMMOARPGAttributeSlot ComboAttack;// 一组连招GA名字.
