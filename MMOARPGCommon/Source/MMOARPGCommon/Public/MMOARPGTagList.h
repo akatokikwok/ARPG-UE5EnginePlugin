@@ -22,6 +22,7 @@ int32 GetGamePlayTagOrderIndex(const FName &InTag)
 		"Player.Skill.SprintWhirlwindBlow",
 		"Player.Skill.EscapeToKill",
 		"Player.Skill.StreamBlade",
+		"Player.Cooldown.Skill",
 	};
 
 	return GameplayTagsOrder.Find(InTag.ToString());
@@ -46,6 +47,7 @@ enum class EGamePlayTags0 : uint64
     Player_Skill_SprintWhirlwindBlow = 128,
     Player_Skill_EscapeToKill = 256,
     Player_Skill_StreamBlade = 512,
+    Player_Cooldown_Skill = 1024,
 };
 
 /* Convert GamplayTag tag to enumeration */
@@ -80,6 +82,9 @@ EGamePlayTags0  NameToEGamePlayTags0(const FName &InName)
 	} else
 	if (InName == TEXT("Player.Skill.StreamBlade")) {
 		 return EGamePlayTags0::Player_Skill_StreamBlade;
+	} else
+	if (InName == TEXT("Player.Cooldown.Skill")) {
+		 return EGamePlayTags0::Player_Cooldown_Skill;
 	} 
 
     return (EGamePlayTags0)0llu;
@@ -119,6 +124,9 @@ FString  EGamePlayTags0ToName(const EGamePlayTags0& InTag)
 
 		case EGamePlayTags0::Player_Skill_StreamBlade:
 		 return TEXT("Player.Skill.StreamBlade");
+
+		case EGamePlayTags0::Player_Cooldown_Skill:
+		 return TEXT("Player.Cooldown.Skill");
 
 	}
 
@@ -169,6 +177,10 @@ void  NameToEGamePlayTags0s(const FName &InName,TArray<FName> &OutName)
 	{
 		OutName.AddUnique(TEXT("Player.Skill.StreamBlade"));
 	}
+	if(Tags & (int32)EGamePlayTags0::Player_Cooldown_Skill)
+	{
+		OutName.AddUnique(TEXT("Player.Cooldown.Skill"));
+	}
 }
 
 /* Convert multiple enumerations into one label for storage. */
@@ -216,6 +228,10 @@ FName  EGamePlayTags0sToName(const TArray<FName> &InName)
 		if(Tmp == FName(TEXT("Player.Skill.StreamBlade")))
 		{
 			Tags |= (uint64)EGamePlayTags0::Player_Skill_StreamBlade;
+		} else
+		if(Tmp == FName(TEXT("Player.Cooldown.Skill")))
+		{
+			Tags |= (uint64)EGamePlayTags0::Player_Cooldown_Skill;
 		} 
 	}
 
