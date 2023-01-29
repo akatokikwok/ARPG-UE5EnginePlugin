@@ -23,6 +23,9 @@ int32 GetGamePlayTagOrderIndex(const FName &InTag)
 		"Player.Skill.EscapeToKill",
 		"Player.Skill.StreamBlade",
 		"Player.Cooldown.Skill",
+		"Player.Skill.PickFly",
+		"Player.Skill.Spike",
+		"Player.Skill.SprintPickFly",
 	};
 
 	return GameplayTagsOrder.Find(InTag.ToString());
@@ -48,6 +51,9 @@ enum class EGamePlayTags0 : uint64
     Player_Skill_EscapeToKill = 256,
     Player_Skill_StreamBlade = 512,
     Player_Cooldown_Skill = 1024,
+    Player_Skill_PickFly = 2048,
+    Player_Skill_Spike = 4096,
+    Player_Skill_SprintPickFly = 8192,
 };
 
 /* Convert GamplayTag tag to enumeration */
@@ -85,6 +91,15 @@ EGamePlayTags0  NameToEGamePlayTags0(const FName &InName)
 	} else
 	if (InName == TEXT("Player.Cooldown.Skill")) {
 		 return EGamePlayTags0::Player_Cooldown_Skill;
+	} else
+	if (InName == TEXT("Player.Skill.PickFly")) {
+		 return EGamePlayTags0::Player_Skill_PickFly;
+	} else
+	if (InName == TEXT("Player.Skill.Spike")) {
+		 return EGamePlayTags0::Player_Skill_Spike;
+	} else
+	if (InName == TEXT("Player.Skill.SprintPickFly")) {
+		 return EGamePlayTags0::Player_Skill_SprintPickFly;
 	} 
 
     return (EGamePlayTags0)0llu;
@@ -127,6 +142,15 @@ FString  EGamePlayTags0ToName(const EGamePlayTags0& InTag)
 
 		case EGamePlayTags0::Player_Cooldown_Skill:
 		 return TEXT("Player.Cooldown.Skill");
+
+		case EGamePlayTags0::Player_Skill_PickFly:
+		 return TEXT("Player.Skill.PickFly");
+
+		case EGamePlayTags0::Player_Skill_Spike:
+		 return TEXT("Player.Skill.Spike");
+
+		case EGamePlayTags0::Player_Skill_SprintPickFly:
+		 return TEXT("Player.Skill.SprintPickFly");
 
 	}
 
@@ -181,6 +205,18 @@ void  NameToEGamePlayTags0s(const FName &InName,TArray<FName> &OutName)
 	{
 		OutName.AddUnique(TEXT("Player.Cooldown.Skill"));
 	}
+	if(Tags & (int32)EGamePlayTags0::Player_Skill_PickFly)
+	{
+		OutName.AddUnique(TEXT("Player.Skill.PickFly"));
+	}
+	if(Tags & (int32)EGamePlayTags0::Player_Skill_Spike)
+	{
+		OutName.AddUnique(TEXT("Player.Skill.Spike"));
+	}
+	if(Tags & (int32)EGamePlayTags0::Player_Skill_SprintPickFly)
+	{
+		OutName.AddUnique(TEXT("Player.Skill.SprintPickFly"));
+	}
 }
 
 /* Convert multiple enumerations into one label for storage. */
@@ -232,6 +268,18 @@ FName  EGamePlayTags0sToName(const TArray<FName> &InName)
 		if(Tmp == FName(TEXT("Player.Cooldown.Skill")))
 		{
 			Tags |= (uint64)EGamePlayTags0::Player_Cooldown_Skill;
+		} else
+		if(Tmp == FName(TEXT("Player.Skill.PickFly")))
+		{
+			Tags |= (uint64)EGamePlayTags0::Player_Skill_PickFly;
+		} else
+		if(Tmp == FName(TEXT("Player.Skill.Spike")))
+		{
+			Tags |= (uint64)EGamePlayTags0::Player_Skill_Spike;
+		} else
+		if(Tmp == FName(TEXT("Player.Skill.SprintPickFly")))
+		{
+			Tags |= (uint64)EGamePlayTags0::Player_Skill_SprintPickFly;
 		} 
 	}
 
