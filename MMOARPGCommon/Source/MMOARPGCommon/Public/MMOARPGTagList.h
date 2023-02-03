@@ -26,6 +26,8 @@ int32 GetGamePlayTagOrderIndex(const FName &InTag)
 		"Player.Skill.PickFly",
 		"Player.Skill.Spike",
 		"Player.Skill.SprintPickFly",
+		"Player.Attack.ComboLinkage.Air",
+		"Player.Attack.ComboLinkage.Ground",
 	};
 
 	return GameplayTagsOrder.Find(InTag.ToString());
@@ -54,6 +56,8 @@ enum class EGamePlayTags0 : uint64
     Player_Skill_PickFly = 2048,
     Player_Skill_Spike = 4096,
     Player_Skill_SprintPickFly = 8192,
+    Player_Attack_ComboLinkage_Air = 16384,
+    Player_Attack_ComboLinkage_Ground = 32768,
 };
 
 /* Convert GamplayTag tag to enumeration */
@@ -100,6 +104,12 @@ EGamePlayTags0  NameToEGamePlayTags0(const FName &InName)
 	} else
 	if (InName == TEXT("Player.Skill.SprintPickFly")) {
 		 return EGamePlayTags0::Player_Skill_SprintPickFly;
+	} else
+	if (InName == TEXT("Player.Attack.ComboLinkage.Air")) {
+		 return EGamePlayTags0::Player_Attack_ComboLinkage_Air;
+	} else
+	if (InName == TEXT("Player.Attack.ComboLinkage.Ground")) {
+		 return EGamePlayTags0::Player_Attack_ComboLinkage_Ground;
 	} 
 
     return (EGamePlayTags0)0llu;
@@ -151,6 +161,12 @@ FString  EGamePlayTags0ToName(const EGamePlayTags0& InTag)
 
 		case EGamePlayTags0::Player_Skill_SprintPickFly:
 		 return TEXT("Player.Skill.SprintPickFly");
+
+		case EGamePlayTags0::Player_Attack_ComboLinkage_Air:
+		 return TEXT("Player.Attack.ComboLinkage.Air");
+
+		case EGamePlayTags0::Player_Attack_ComboLinkage_Ground:
+		 return TEXT("Player.Attack.ComboLinkage.Ground");
 
 	}
 
@@ -217,6 +233,14 @@ void  NameToEGamePlayTags0s(const FName &InName,TArray<FName> &OutName)
 	{
 		OutName.AddUnique(TEXT("Player.Skill.SprintPickFly"));
 	}
+	if(Tags & (int32)EGamePlayTags0::Player_Attack_ComboLinkage_Air)
+	{
+		OutName.AddUnique(TEXT("Player.Attack.ComboLinkage.Air"));
+	}
+	if(Tags & (int32)EGamePlayTags0::Player_Attack_ComboLinkage_Ground)
+	{
+		OutName.AddUnique(TEXT("Player.Attack.ComboLinkage.Ground"));
+	}
 }
 
 /* Convert multiple enumerations into one label for storage. */
@@ -280,6 +304,14 @@ FName  EGamePlayTags0sToName(const TArray<FName> &InName)
 		if(Tmp == FName(TEXT("Player.Skill.SprintPickFly")))
 		{
 			Tags |= (uint64)EGamePlayTags0::Player_Skill_SprintPickFly;
+		} else
+		if(Tmp == FName(TEXT("Player.Attack.ComboLinkage.Air")))
+		{
+			Tags |= (uint64)EGamePlayTags0::Player_Attack_ComboLinkage_Air;
+		} else
+		if(Tmp == FName(TEXT("Player.Attack.ComboLinkage.Ground")))
+		{
+			Tags |= (uint64)EGamePlayTags0::Player_Attack_ComboLinkage_Ground;
 		} 
 	}
 
