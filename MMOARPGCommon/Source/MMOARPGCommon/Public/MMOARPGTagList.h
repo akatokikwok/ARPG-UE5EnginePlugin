@@ -12,7 +12,6 @@ int32 GetGamePlayTagOrderIndex(const FName &InTag)
 {
 	static TArray<FString> GameplayTagsOrder = 
 	{
-		"Player.Attack.ComboLinkage",
 		"Player.Skill.Dodge",
 		"Player.Skill.Sprint",
 		"Player.State.Die",
@@ -42,30 +41,26 @@ int32 GetOrderMatchingEnumIndex(int32 InGameplayTagsOrderIndex)
 /* Enumerations can be generated dynamically from gameplaytag. */
 enum class EGamePlayTags0 : uint64
 {
-    Player_Attack_ComboLinkage = 1,
-    Player_Skill_Dodge = 2,
-    Player_Skill_Sprint = 4,
-    Player_State_Die = 8,
-    Player_State_Hit = 16,
-    Player_Buff_Damage = 32,
-    Player_Skill_WhirlwindBlow = 64,
-    Player_Skill_SprintWhirlwindBlow = 128,
-    Player_Skill_EscapeToKill = 256,
-    Player_Skill_StreamBlade = 512,
-    Player_Cooldown_Skill = 1024,
-    Player_Skill_PickFly = 2048,
-    Player_Skill_Spike = 4096,
-    Player_Skill_SprintPickFly = 8192,
-    Player_Attack_ComboLinkage_Air = 16384,
-    Player_Attack_ComboLinkage_Ground = 32768,
+    Player_Skill_Dodge = 1,
+    Player_Skill_Sprint = 2,
+    Player_State_Die = 4,
+    Player_State_Hit = 8,
+    Player_Buff_Damage = 16,
+    Player_Skill_WhirlwindBlow = 32,
+    Player_Skill_SprintWhirlwindBlow = 64,
+    Player_Skill_EscapeToKill = 128,
+    Player_Skill_StreamBlade = 256,
+    Player_Cooldown_Skill = 512,
+    Player_Skill_PickFly = 1024,
+    Player_Skill_Spike = 2048,
+    Player_Skill_SprintPickFly = 4096,
+    Player_Attack_ComboLinkage_Air = 8192,
+    Player_Attack_ComboLinkage_Ground = 16384,
 };
 
 /* Convert GamplayTag tag to enumeration */
 EGamePlayTags0  NameToEGamePlayTags0(const FName &InName)
 {
-	if (InName == TEXT("Player.Attack.ComboLinkage")) {
-		 return EGamePlayTags0::Player_Attack_ComboLinkage;
-	} else
 	if (InName == TEXT("Player.Skill.Dodge")) {
 		 return EGamePlayTags0::Player_Skill_Dodge;
 	} else
@@ -120,9 +115,6 @@ FString  EGamePlayTags0ToName(const EGamePlayTags0& InTag)
 {
 	switch(InTag)
 	{
-		case EGamePlayTags0::Player_Attack_ComboLinkage:
-		 return TEXT("Player.Attack.ComboLinkage");
-
 		case EGamePlayTags0::Player_Skill_Dodge:
 		 return TEXT("Player.Skill.Dodge");
 
@@ -177,10 +169,6 @@ FString  EGamePlayTags0ToName(const EGamePlayTags0& InTag)
 void  NameToEGamePlayTags0s(const FName &InName,TArray<FName> &OutName)
 {
 	uint64 Tags = FCString::Strtoui64(*InName.ToString(),NULL,10);
-	if(Tags & (int32)EGamePlayTags0::Player_Attack_ComboLinkage)
-	{
-		OutName.AddUnique(TEXT("Player.Attack.ComboLinkage"));
-	}
 	if(Tags & (int32)EGamePlayTags0::Player_Skill_Dodge)
 	{
 		OutName.AddUnique(TEXT("Player.Skill.Dodge"));
@@ -249,10 +237,6 @@ FName  EGamePlayTags0sToName(const TArray<FName> &InName)
     uint64 Tags = 0llu;
 	for(auto &Tmp : InName)
 	{
-		if(Tmp == FName(TEXT("Player.Attack.ComboLinkage")))
-		{
-			Tags |= (uint64)EGamePlayTags0::Player_Attack_ComboLinkage;
-		} else
 		if(Tmp == FName(TEXT("Player.Skill.Dodge")))
 		{
 			Tags |= (uint64)EGamePlayTags0::Player_Skill_Dodge;
