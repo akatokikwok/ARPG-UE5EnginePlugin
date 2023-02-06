@@ -27,6 +27,8 @@ int32 GetGamePlayTagOrderIndex(const FName &InTag)
 		"Player.Skill.SprintPickFly",
 		"Player.Attack.ComboLinkage.Air",
 		"Player.Attack.ComboLinkage.Ground",
+		"GameplayCue.Hit",
+		"Player.Skill.AVolley",
 	};
 
 	return GameplayTagsOrder.Find(InTag.ToString());
@@ -56,6 +58,8 @@ enum class EGamePlayTags0 : uint64
     Player_Skill_SprintPickFly = 4096,
     Player_Attack_ComboLinkage_Air = 8192,
     Player_Attack_ComboLinkage_Ground = 16384,
+    GameplayCue_Hit = 32768,
+    Player_Skill_AVolley = 65536,
 };
 
 /* Convert GamplayTag tag to enumeration */
@@ -105,6 +109,12 @@ EGamePlayTags0  NameToEGamePlayTags0(const FName &InName)
 	} else
 	if (InName == TEXT("Player.Attack.ComboLinkage.Ground")) {
 		 return EGamePlayTags0::Player_Attack_ComboLinkage_Ground;
+	} else
+	if (InName == TEXT("GameplayCue.Hit")) {
+		 return EGamePlayTags0::GameplayCue_Hit;
+	} else
+	if (InName == TEXT("Player.Skill.AVolley")) {
+		 return EGamePlayTags0::Player_Skill_AVolley;
 	} 
 
     return (EGamePlayTags0)0llu;
@@ -159,6 +169,12 @@ FString  EGamePlayTags0ToName(const EGamePlayTags0& InTag)
 
 		case EGamePlayTags0::Player_Attack_ComboLinkage_Ground:
 		 return TEXT("Player.Attack.ComboLinkage.Ground");
+
+		case EGamePlayTags0::GameplayCue_Hit:
+		 return TEXT("GameplayCue.Hit");
+
+		case EGamePlayTags0::Player_Skill_AVolley:
+		 return TEXT("Player.Skill.AVolley");
 
 	}
 
@@ -229,6 +245,14 @@ void  NameToEGamePlayTags0s(const FName &InName,TArray<FName> &OutName)
 	{
 		OutName.AddUnique(TEXT("Player.Attack.ComboLinkage.Ground"));
 	}
+	if(Tags & (int32)EGamePlayTags0::GameplayCue_Hit)
+	{
+		OutName.AddUnique(TEXT("GameplayCue.Hit"));
+	}
+	if(Tags & (int32)EGamePlayTags0::Player_Skill_AVolley)
+	{
+		OutName.AddUnique(TEXT("Player.Skill.AVolley"));
+	}
 }
 
 /* Convert multiple enumerations into one label for storage. */
@@ -296,6 +320,14 @@ FName  EGamePlayTags0sToName(const TArray<FName> &InName)
 		if(Tmp == FName(TEXT("Player.Attack.ComboLinkage.Ground")))
 		{
 			Tags |= (uint64)EGamePlayTags0::Player_Attack_ComboLinkage_Ground;
+		} else
+		if(Tmp == FName(TEXT("GameplayCue.Hit")))
+		{
+			Tags |= (uint64)EGamePlayTags0::GameplayCue_Hit;
+		} else
+		if(Tmp == FName(TEXT("Player.Skill.AVolley")))
+		{
+			Tags |= (uint64)EGamePlayTags0::Player_Skill_AVolley;
 		} 
 	}
 
