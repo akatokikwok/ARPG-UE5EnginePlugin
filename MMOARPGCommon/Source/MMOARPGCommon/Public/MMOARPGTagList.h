@@ -37,6 +37,11 @@ int32 GetGamePlayTagOrderIndex(const FName &InTag)
 /*Get the number of enumerations of the current order*/
 int32 GetOrderMatchingEnumIndex(int32 InGameplayTagsOrderIndex)
 {
+	if (InGameplayTagsOrderIndex == 0)
+	{
+		return 1;
+	}
+
 	return FMath::CeilToInt((float)InGameplayTagsOrderIndex / 63.f);
 }
 
