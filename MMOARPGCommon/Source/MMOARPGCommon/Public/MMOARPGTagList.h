@@ -29,6 +29,7 @@ int32 GetGamePlayTagOrderIndex(const FName &InTag)
 		"Player.Attack.ComboLinkage.Ground",
 		"GameplayCue.Hit",
 		"Player.Skill.AVolley",
+		"Player.Attack.ComboLinkage.Ground.Type2",
 	};
 
 	return GameplayTagsOrder.Find(InTag.ToString());
@@ -65,6 +66,7 @@ enum class EGamePlayTags0 : uint64
     Player_Attack_ComboLinkage_Ground = 16384,
     GameplayCue_Hit = 32768,
     Player_Skill_AVolley = 65536,
+    Player_Attack_ComboLinkage_Ground_Type2 = 131072,
 };
 
 /* Convert GamplayTag tag to enumeration */
@@ -120,6 +122,9 @@ EGamePlayTags0  NameToEGamePlayTags0(const FName &InName)
 	} else
 	if (InName == TEXT("Player.Skill.AVolley")) {
 		 return EGamePlayTags0::Player_Skill_AVolley;
+	} else
+	if (InName == TEXT("Player.Attack.ComboLinkage.Ground.Type2")) {
+		 return EGamePlayTags0::Player_Attack_ComboLinkage_Ground_Type2;
 	} 
 
     return (EGamePlayTags0)0llu;
@@ -180,6 +185,9 @@ FString  EGamePlayTags0ToName(const EGamePlayTags0& InTag)
 
 		case EGamePlayTags0::Player_Skill_AVolley:
 		 return TEXT("Player.Skill.AVolley");
+
+		case EGamePlayTags0::Player_Attack_ComboLinkage_Ground_Type2:
+		 return TEXT("Player.Attack.ComboLinkage.Ground.Type2");
 
 	}
 
@@ -258,6 +266,10 @@ void  NameToEGamePlayTags0s(const FName &InName,TArray<FName> &OutName)
 	{
 		OutName.AddUnique(TEXT("Player.Skill.AVolley"));
 	}
+	if(Tags & (int32)EGamePlayTags0::Player_Attack_ComboLinkage_Ground_Type2)
+	{
+		OutName.AddUnique(TEXT("Player.Attack.ComboLinkage.Ground.Type2"));
+	}
 }
 
 /* Convert multiple enumerations into one label for storage. */
@@ -333,6 +345,10 @@ FName  EGamePlayTags0sToName(const TArray<FName> &InName)
 		if(Tmp == FName(TEXT("Player.Skill.AVolley")))
 		{
 			Tags |= (uint64)EGamePlayTags0::Player_Skill_AVolley;
+		} else
+		if(Tmp == FName(TEXT("Player.Attack.ComboLinkage.Ground.Type2")))
+		{
+			Tags |= (uint64)EGamePlayTags0::Player_Attack_ComboLinkage_Ground_Type2;
 		} 
 	}
 
