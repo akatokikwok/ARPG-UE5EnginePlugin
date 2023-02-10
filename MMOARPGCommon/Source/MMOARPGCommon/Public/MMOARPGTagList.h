@@ -1,4 +1,4 @@
-//Copyright (C) grb.2022.All Rights Reserved.
+﻿//Copyright (C) grb.2022.All Rights Reserved.
 
 #pragma once
 #include "CoreMinimal.h"
@@ -31,6 +31,7 @@ int32 GetGamePlayTagOrderIndex(const FName &InTag)
 		"Player.Skill.AVolley",
 		"Player.Attack.ComboLinkage.Ground.Type2",
 		"Player.Skill.WhirlwindProvoked",
+		"Player.Skill.FlameCutDown",
 	};
 
 	return GameplayTagsOrder.Find(InTag.ToString());
@@ -69,6 +70,7 @@ enum class EGamePlayTags0 : uint64
     Player_Skill_AVolley = 65536,
     Player_Attack_ComboLinkage_Ground_Type2 = 131072,
     Player_Skill_WhirlwindProvoked = 262144,
+    Player_Skill_FlameCutDown = 524288,
 };
 
 /* Convert GamplayTag tag to enumeration */
@@ -130,6 +132,9 @@ EGamePlayTags0  NameToEGamePlayTags0(const FName &InName)
 	} else
 	if (InName == TEXT("Player.Skill.WhirlwindProvoked")) {
 		 return EGamePlayTags0::Player_Skill_WhirlwindProvoked;
+	} else
+	if (InName == TEXT("Player.Skill.FlameCutDown")) {
+		 return EGamePlayTags0::Player_Skill_FlameCutDown;
 	} 
 
     return (EGamePlayTags0)0llu;
@@ -196,6 +201,9 @@ FString  EGamePlayTags0ToName(const EGamePlayTags0& InTag)
 
 		case EGamePlayTags0::Player_Skill_WhirlwindProvoked:
 		 return TEXT("Player.Skill.WhirlwindProvoked");
+
+		case EGamePlayTags0::Player_Skill_FlameCutDown:
+		 return TEXT("Player.Skill.FlameCutDown");
 
 	}
 
@@ -282,6 +290,10 @@ void  NameToEGamePlayTags0s(const FName &InName,TArray<FName> &OutName)
 	{
 		OutName.AddUnique(TEXT("Player.Skill.WhirlwindProvoked"));
 	}
+	if(Tags & (int32)EGamePlayTags0::Player_Skill_FlameCutDown)
+	{
+		OutName.AddUnique(TEXT("Player.Skill.FlameCutDown"));
+	}
 }
 
 /* Convert multiple enumerations into one label for storage. */
@@ -365,6 +377,10 @@ FName  EGamePlayTags0sToName(const TArray<FName> &InName)
 		if(Tmp == FName(TEXT("Player.Skill.WhirlwindProvoked")))
 		{
 			Tags |= (uint64)EGamePlayTags0::Player_Skill_WhirlwindProvoked;
+		} else
+		if(Tmp == FName(TEXT("Player.Skill.FlameCutDown")))
+		{
+			Tags |= (uint64)EGamePlayTags0::Player_Skill_FlameCutDown;
 		} 
 	}
 
