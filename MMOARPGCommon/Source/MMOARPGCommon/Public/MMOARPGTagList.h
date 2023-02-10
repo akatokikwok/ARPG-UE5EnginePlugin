@@ -30,6 +30,7 @@ int32 GetGamePlayTagOrderIndex(const FName &InTag)
 		"GameplayCue.Hit",
 		"Player.Skill.AVolley",
 		"Player.Attack.ComboLinkage.Ground.Type2",
+		"Player.Skill.WhirlwindProvoked",
 	};
 
 	return GameplayTagsOrder.Find(InTag.ToString());
@@ -67,6 +68,7 @@ enum class EGamePlayTags0 : uint64
     GameplayCue_Hit = 32768,
     Player_Skill_AVolley = 65536,
     Player_Attack_ComboLinkage_Ground_Type2 = 131072,
+    Player_Skill_WhirlwindProvoked = 262144,
 };
 
 /* Convert GamplayTag tag to enumeration */
@@ -125,6 +127,9 @@ EGamePlayTags0  NameToEGamePlayTags0(const FName &InName)
 	} else
 	if (InName == TEXT("Player.Attack.ComboLinkage.Ground.Type2")) {
 		 return EGamePlayTags0::Player_Attack_ComboLinkage_Ground_Type2;
+	} else
+	if (InName == TEXT("Player.Skill.WhirlwindProvoked")) {
+		 return EGamePlayTags0::Player_Skill_WhirlwindProvoked;
 	} 
 
     return (EGamePlayTags0)0llu;
@@ -188,6 +193,9 @@ FString  EGamePlayTags0ToName(const EGamePlayTags0& InTag)
 
 		case EGamePlayTags0::Player_Attack_ComboLinkage_Ground_Type2:
 		 return TEXT("Player.Attack.ComboLinkage.Ground.Type2");
+
+		case EGamePlayTags0::Player_Skill_WhirlwindProvoked:
+		 return TEXT("Player.Skill.WhirlwindProvoked");
 
 	}
 
@@ -270,6 +278,10 @@ void  NameToEGamePlayTags0s(const FName &InName,TArray<FName> &OutName)
 	{
 		OutName.AddUnique(TEXT("Player.Attack.ComboLinkage.Ground.Type2"));
 	}
+	if(Tags & (int32)EGamePlayTags0::Player_Skill_WhirlwindProvoked)
+	{
+		OutName.AddUnique(TEXT("Player.Skill.WhirlwindProvoked"));
+	}
 }
 
 /* Convert multiple enumerations into one label for storage. */
@@ -349,6 +361,10 @@ FName  EGamePlayTags0sToName(const TArray<FName> &InName)
 		if(Tmp == FName(TEXT("Player.Attack.ComboLinkage.Ground.Type2")))
 		{
 			Tags |= (uint64)EGamePlayTags0::Player_Attack_ComboLinkage_Ground_Type2;
+		} else
+		if(Tmp == FName(TEXT("Player.Skill.WhirlwindProvoked")))
+		{
+			Tags |= (uint64)EGamePlayTags0::Player_Skill_WhirlwindProvoked;
 		} 
 	}
 
