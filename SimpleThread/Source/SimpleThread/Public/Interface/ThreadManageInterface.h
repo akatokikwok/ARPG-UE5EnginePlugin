@@ -222,14 +222,17 @@ public:
 	void operator<<=(float Time)
 	{
 		TArray<TSharedPtr<ICoroutinesObject>> RemoveObject;
-		for (int32 i = 0 ;i < ICoroutinesObject::Array.Num() ;i++)
+		for (int32 i = 0 ;i < ICoroutinesObject::Array.Num();i++)//改成i的形式 是为了安全考虑
 		{
-			FCoroutinesRequest Request(Time);
-
-			ICoroutinesObject::Array[i]->Update(Request);
-			if (Request.bCompleteRequest)
+			if (auto Tmp = ICoroutinesObject::Array[i])
 			{
-				RemoveObject.Add(ICoroutinesObject::Array[i]);
+				FCoroutinesRequest Request(Time);
+
+				Tmp->Update(Request);
+				if (Request.bCompleteRequest)
+				{
+					RemoveObject.Add(Tmp);
+				}
 			}
 		}
 

@@ -11,6 +11,7 @@
 	"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/f842694afc354d25b1c3cb3a5397bd9d",
 	"SupportURL": "http://www.aboutcg.org/course/tut_ue4suite_190813/",
 	"CanContainContent": true,
+	"IsBetaVersion": true,
 	"Installed": true,
 	"Modules": [
 		{
