@@ -1,4 +1,4 @@
-﻿//Copyright (C) grb.2022.All Rights Reserved.
+//Copyright (C) grb.2022.All Rights Reserved.
 
 #pragma once
 #include "CoreMinimal.h"
@@ -32,6 +32,8 @@ int32 GetGamePlayTagOrderIndex(const FName &InTag)
 		"Player.Attack.ComboLinkage.Ground.Type2",
 		"Player.Skill.WhirlwindProvoked",
 		"Player.Skill.FlameCutDown",
+		"Player.Buff.SuperArmor",
+		"Player.State.Stun",
 	};
 
 	return GameplayTagsOrder.Find(InTag.ToString());
@@ -71,6 +73,8 @@ enum class EGamePlayTags0 : uint64
     Player_Attack_ComboLinkage_Ground_Type2 = 131072,
     Player_Skill_WhirlwindProvoked = 262144,
     Player_Skill_FlameCutDown = 524288,
+    Player_Buff_SuperArmor = 1048576,
+    Player_State_Stun = 2097152,
 };
 
 /* Convert GamplayTag tag to enumeration */
@@ -135,6 +139,12 @@ EGamePlayTags0  NameToEGamePlayTags0(const FName &InName)
 	} else
 	if (InName == TEXT("Player.Skill.FlameCutDown")) {
 		 return EGamePlayTags0::Player_Skill_FlameCutDown;
+	} else
+	if (InName == TEXT("Player.Buff.SuperArmor")) {
+		 return EGamePlayTags0::Player_Buff_SuperArmor;
+	} else
+	if (InName == TEXT("Player.State.Stun")) {
+		 return EGamePlayTags0::Player_State_Stun;
 	} 
 
     return (EGamePlayTags0)0llu;
@@ -204,6 +214,12 @@ FString  EGamePlayTags0ToName(const EGamePlayTags0& InTag)
 
 		case EGamePlayTags0::Player_Skill_FlameCutDown:
 		 return TEXT("Player.Skill.FlameCutDown");
+
+		case EGamePlayTags0::Player_Buff_SuperArmor:
+		 return TEXT("Player.Buff.SuperArmor");
+
+		case EGamePlayTags0::Player_State_Stun:
+		 return TEXT("Player.State.Stun");
 
 	}
 
@@ -294,6 +310,14 @@ void  NameToEGamePlayTags0s(const FName &InName,TArray<FName> &OutName)
 	{
 		OutName.AddUnique(TEXT("Player.Skill.FlameCutDown"));
 	}
+	if(Tags & (int32)EGamePlayTags0::Player_Buff_SuperArmor)
+	{
+		OutName.AddUnique(TEXT("Player.Buff.SuperArmor"));
+	}
+	if(Tags & (int32)EGamePlayTags0::Player_State_Stun)
+	{
+		OutName.AddUnique(TEXT("Player.State.Stun"));
+	}
 }
 
 /* Convert multiple enumerations into one label for storage. */
@@ -381,6 +405,14 @@ FName  EGamePlayTags0sToName(const TArray<FName> &InName)
 		if(Tmp == FName(TEXT("Player.Skill.FlameCutDown")))
 		{
 			Tags |= (uint64)EGamePlayTags0::Player_Skill_FlameCutDown;
+		} else
+		if(Tmp == FName(TEXT("Player.Buff.SuperArmor")))
+		{
+			Tags |= (uint64)EGamePlayTags0::Player_Buff_SuperArmor;
+		} else
+		if(Tmp == FName(TEXT("Player.State.Stun")))
+		{
+			Tags |= (uint64)EGamePlayTags0::Player_State_Stun;
 		} 
 	}
 
