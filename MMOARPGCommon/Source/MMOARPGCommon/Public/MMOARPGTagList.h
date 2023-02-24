@@ -34,6 +34,9 @@ int32 GetGamePlayTagOrderIndex(const FName &InTag)
 		"Player.Skill.FlameCutDown",
 		"Player.Buff.SuperArmor",
 		"Player.State.Stun",
+		"Player.Skill.Block",
+		"Player.Skill.Block.Type1",
+		"Player.Skill.ShieldAtk",
 	};
 
 	return GameplayTagsOrder.Find(InTag.ToString());
@@ -75,6 +78,9 @@ enum class EGamePlayTags0 : uint64
     Player_Skill_FlameCutDown = 524288,
     Player_Buff_SuperArmor = 1048576,
     Player_State_Stun = 2097152,
+    Player_Skill_Block = 4194304,
+    Player_Skill_Block_Type1 = 8388608,
+    Player_Skill_ShieldAtk = 16777216,
 };
 
 /* Convert GamplayTag tag to enumeration */
@@ -145,6 +151,15 @@ EGamePlayTags0  NameToEGamePlayTags0(const FName &InName)
 	} else
 	if (InName == TEXT("Player.State.Stun")) {
 		 return EGamePlayTags0::Player_State_Stun;
+	} else
+	if (InName == TEXT("Player.Skill.Block")) {
+		 return EGamePlayTags0::Player_Skill_Block;
+	} else
+	if (InName == TEXT("Player.Skill.Block.Type1")) {
+		 return EGamePlayTags0::Player_Skill_Block_Type1;
+	} else
+	if (InName == TEXT("Player.Skill.ShieldAtk")) {
+		 return EGamePlayTags0::Player_Skill_ShieldAtk;
 	} 
 
     return (EGamePlayTags0)0llu;
@@ -220,6 +235,15 @@ FString  EGamePlayTags0ToName(const EGamePlayTags0& InTag)
 
 		case EGamePlayTags0::Player_State_Stun:
 		 return TEXT("Player.State.Stun");
+
+		case EGamePlayTags0::Player_Skill_Block:
+		 return TEXT("Player.Skill.Block");
+
+		case EGamePlayTags0::Player_Skill_Block_Type1:
+		 return TEXT("Player.Skill.Block.Type1");
+
+		case EGamePlayTags0::Player_Skill_ShieldAtk:
+		 return TEXT("Player.Skill.ShieldAtk");
 
 	}
 
@@ -318,6 +342,18 @@ void  NameToEGamePlayTags0s(const FName &InName,TArray<FName> &OutName)
 	{
 		OutName.AddUnique(TEXT("Player.State.Stun"));
 	}
+	if(Tags & (int32)EGamePlayTags0::Player_Skill_Block)
+	{
+		OutName.AddUnique(TEXT("Player.Skill.Block"));
+	}
+	if(Tags & (int32)EGamePlayTags0::Player_Skill_Block_Type1)
+	{
+		OutName.AddUnique(TEXT("Player.Skill.Block.Type1"));
+	}
+	if(Tags & (int32)EGamePlayTags0::Player_Skill_ShieldAtk)
+	{
+		OutName.AddUnique(TEXT("Player.Skill.ShieldAtk"));
+	}
 }
 
 /* Convert multiple enumerations into one label for storage. */
@@ -413,6 +449,18 @@ FName  EGamePlayTags0sToName(const TArray<FName> &InName)
 		if(Tmp == FName(TEXT("Player.State.Stun")))
 		{
 			Tags |= (uint64)EGamePlayTags0::Player_State_Stun;
+		} else
+		if(Tmp == FName(TEXT("Player.Skill.Block")))
+		{
+			Tags |= (uint64)EGamePlayTags0::Player_Skill_Block;
+		} else
+		if(Tmp == FName(TEXT("Player.Skill.Block.Type1")))
+		{
+			Tags |= (uint64)EGamePlayTags0::Player_Skill_Block_Type1;
+		} else
+		if(Tmp == FName(TEXT("Player.Skill.ShieldAtk")))
+		{
+			Tags |= (uint64)EGamePlayTags0::Player_Skill_ShieldAtk;
 		} 
 	}
 
