@@ -37,6 +37,9 @@ int32 GetGamePlayTagOrderIndex(const FName &InTag)
 		"Player.Skill.Block",
 		"Player.Skill.Block.Type1",
 		"Player.Skill.ShieldAtk",
+		"GameplayCue.Skill.Shield",
+		"GameplayCue.Skill.Shield2",
+		"Player.Buff.Shield",
 	};
 
 	return GameplayTagsOrder.Find(InTag.ToString());
@@ -81,6 +84,9 @@ enum class EGamePlayTags0 : uint64
     Player_Skill_Block = 4194304,
     Player_Skill_Block_Type1 = 8388608,
     Player_Skill_ShieldAtk = 16777216,
+    GameplayCue_Skill_Shield = 33554432,
+    GameplayCue_Skill_Shield2 = 67108864,
+    Player_Buff_Shield = 134217728,
 };
 
 /* Convert GamplayTag tag to enumeration */
@@ -160,6 +166,15 @@ EGamePlayTags0  NameToEGamePlayTags0(const FName &InName)
 	} else
 	if (InName == TEXT("Player.Skill.ShieldAtk")) {
 		 return EGamePlayTags0::Player_Skill_ShieldAtk;
+	} else
+	if (InName == TEXT("GameplayCue.Skill.Shield")) {
+		 return EGamePlayTags0::GameplayCue_Skill_Shield;
+	} else
+	if (InName == TEXT("GameplayCue.Skill.Shield2")) {
+		 return EGamePlayTags0::GameplayCue_Skill_Shield2;
+	} else
+	if (InName == TEXT("Player.Buff.Shield")) {
+		 return EGamePlayTags0::Player_Buff_Shield;
 	} 
 
     return (EGamePlayTags0)0llu;
@@ -244,6 +259,15 @@ FString  EGamePlayTags0ToName(const EGamePlayTags0& InTag)
 
 		case EGamePlayTags0::Player_Skill_ShieldAtk:
 		 return TEXT("Player.Skill.ShieldAtk");
+
+		case EGamePlayTags0::GameplayCue_Skill_Shield:
+		 return TEXT("GameplayCue.Skill.Shield");
+
+		case EGamePlayTags0::GameplayCue_Skill_Shield2:
+		 return TEXT("GameplayCue.Skill.Shield2");
+
+		case EGamePlayTags0::Player_Buff_Shield:
+		 return TEXT("Player.Buff.Shield");
 
 	}
 
@@ -354,6 +378,18 @@ void  NameToEGamePlayTags0s(const FName &InName,TArray<FName> &OutName)
 	{
 		OutName.AddUnique(TEXT("Player.Skill.ShieldAtk"));
 	}
+	if(Tags & (int32)EGamePlayTags0::GameplayCue_Skill_Shield)
+	{
+		OutName.AddUnique(TEXT("GameplayCue.Skill.Shield"));
+	}
+	if(Tags & (int32)EGamePlayTags0::GameplayCue_Skill_Shield2)
+	{
+		OutName.AddUnique(TEXT("GameplayCue.Skill.Shield2"));
+	}
+	if(Tags & (int32)EGamePlayTags0::Player_Buff_Shield)
+	{
+		OutName.AddUnique(TEXT("Player.Buff.Shield"));
+	}
 }
 
 /* Convert multiple enumerations into one label for storage. */
@@ -461,6 +497,18 @@ FName  EGamePlayTags0sToName(const TArray<FName> &InName)
 		if(Tmp == FName(TEXT("Player.Skill.ShieldAtk")))
 		{
 			Tags |= (uint64)EGamePlayTags0::Player_Skill_ShieldAtk;
+		} else
+		if(Tmp == FName(TEXT("GameplayCue.Skill.Shield")))
+		{
+			Tags |= (uint64)EGamePlayTags0::GameplayCue_Skill_Shield;
+		} else
+		if(Tmp == FName(TEXT("GameplayCue.Skill.Shield2")))
+		{
+			Tags |= (uint64)EGamePlayTags0::GameplayCue_Skill_Shield2;
+		} else
+		if(Tmp == FName(TEXT("Player.Buff.Shield")))
+		{
+			Tags |= (uint64)EGamePlayTags0::Player_Buff_Shield;
 		} 
 	}
 
