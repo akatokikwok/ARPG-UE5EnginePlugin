@@ -40,6 +40,7 @@ int32 GetGamePlayTagOrderIndex(const FName &InTag)
 		"GameplayCue.Skill.Shield",
 		"GameplayCue.Skill.Shield2",
 		"Player.Buff.Shield",
+		"Player.Skill.WirelessShooting",
 	};
 
 	return GameplayTagsOrder.Find(InTag.ToString());
@@ -87,6 +88,7 @@ enum class EGamePlayTags0 : uint64
     GameplayCue_Skill_Shield = 33554432,
     GameplayCue_Skill_Shield2 = 67108864,
     Player_Buff_Shield = 134217728,
+    Player_Skill_WirelessShooting = 268435456,
 };
 
 /* Convert GamplayTag tag to enumeration */
@@ -175,6 +177,9 @@ EGamePlayTags0  NameToEGamePlayTags0(const FName &InName)
 	} else
 	if (InName == TEXT("Player.Buff.Shield")) {
 		 return EGamePlayTags0::Player_Buff_Shield;
+	} else
+	if (InName == TEXT("Player.Skill.WirelessShooting")) {
+		 return EGamePlayTags0::Player_Skill_WirelessShooting;
 	} 
 
     return (EGamePlayTags0)0llu;
@@ -268,6 +273,9 @@ FString  EGamePlayTags0ToName(const EGamePlayTags0& InTag)
 
 		case EGamePlayTags0::Player_Buff_Shield:
 		 return TEXT("Player.Buff.Shield");
+
+		case EGamePlayTags0::Player_Skill_WirelessShooting:
+		 return TEXT("Player.Skill.WirelessShooting");
 
 	}
 
@@ -390,6 +398,10 @@ void  NameToEGamePlayTags0s(const FName &InName,TArray<FName> &OutName)
 	{
 		OutName.AddUnique(TEXT("Player.Buff.Shield"));
 	}
+	if(Tags & (int32)EGamePlayTags0::Player_Skill_WirelessShooting)
+	{
+		OutName.AddUnique(TEXT("Player.Skill.WirelessShooting"));
+	}
 }
 
 /* Convert multiple enumerations into one label for storage. */
@@ -509,6 +521,10 @@ FName  EGamePlayTags0sToName(const TArray<FName> &InName)
 		if(Tmp == FName(TEXT("Player.Buff.Shield")))
 		{
 			Tags |= (uint64)EGamePlayTags0::Player_Buff_Shield;
+		} else
+		if(Tmp == FName(TEXT("Player.Skill.WirelessShooting")))
+		{
+			Tags |= (uint64)EGamePlayTags0::Player_Skill_WirelessShooting;
 		} 
 	}
 
